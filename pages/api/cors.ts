@@ -1,6 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Cors from 'cors'
 
+import { env } from 'process';
+
+const snoowrap = require('snoowrap');
+
 // Initializing the cors middleware
 // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
 const cors = Cors({
@@ -32,6 +36,14 @@ export default async function handler(
   // Run the middleware
   await runMiddleware(req, res, cors)
 
+  const reddit_instance = new snoowrap({
+    userAgent: env.USER_AGENT,
+    clientId: env.CLIENT_ID,
+    clientSecret: env.SECRET_KEY,
+    refreshToken: env.REFRESH_TOKEN
+  })
+  const posts = await reddit_instance.getHot()
+
   // Rest of the API logic
-  res.json({ message: 'Hello Everyone!' })
+  res.json({ message: 'Hello Everyone!', posts })
 }
