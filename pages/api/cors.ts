@@ -45,5 +45,5 @@ export default async function handler(
   const posts = await reddit_instance.getHot()
 
   // Rest of the API logic
-  res.json({ message: 'Hello Everyone!', posts })
+  res.json({ posts })
 }

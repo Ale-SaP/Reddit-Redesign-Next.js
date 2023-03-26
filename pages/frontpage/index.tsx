@@ -1,5 +1,5 @@
-import MyApp from './_app'
-import Frontpage from './frontpage/frontpage'
+import MyApp from '../_app'
+import Frontpage from './frontpage'
 
 export default function Index() {
 
