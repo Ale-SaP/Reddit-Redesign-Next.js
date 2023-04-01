@@ -1,37 +1,45 @@
+import { useQuery } from "react-query";
 import axios from "axios";
-import { useState } from "react";
-import { useQuery, useQueryClient, QueryClientProvider } from 'react-query'
+
+const fetchComment = async (postId: string) => {
+    const instance = axios.create({});
+    return await instance.post(`/api/get-comments`, { "postId": postId });
+};
 
 export default function Comments(props: Parameters) {
+    const { data, isLoading } = useQuery<any>(['comments', props.id], () => fetchComment(props.id));
 
-    const onClick = () => { 
-        const { data, isLoading } = useQuery<any>(['todos', props.id], () => fetchComment(props.id))
-    
-        if (isLoading) {
-        return (<h1>Loading!</h1>)
-        }
-
-        if (data) {
-            console.log(data)
-            return (
-                <>
-                {data.data.comments.map(
-                    comment => {
-                        <h1>{comment.text}</h1>
-                    }
-                )}
-                </>
-            )
-        }
+    if (isLoading) {
+        return (
+            <h1>Loading!</h1>
+        )
     }
-    
 
+    if (data) {
+        console.log(data.data.comments.comments)
+        return (
+            <div>
+                {data.data.comments.comments.length > 0 ? (
+                    data.data.comments.comments.map((comment) => {
+                        const date = new Date(comment.created * 1000);
+                        return (
+                            <div className="p-4">
+                                <p className="text-xs">
+                                    u/{comment.author} at {date.toDateString()}
+                                </p>
+                                <h1 className="text-s">{comment.body}</h1>
+                            </div>
+                        );
+                    })
+                ) : (
+                    <div className="p-4">
+                    <p className="text-s">No comments yet!</p>
+                    </ div>
+                )}
+            </div>
+        );
+    }
 }
-
-const fetchComment = async (post: string) => {
-    const instance = axios.create({});
-    return await instance.post(`/api/get-comments`, { "post": post });
-  } 
 
 interface Parameters {
     id: string,

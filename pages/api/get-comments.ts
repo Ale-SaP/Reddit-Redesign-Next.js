@@ -43,10 +43,10 @@ export default async function handler(
     refreshToken: env.REFRESH_TOKEN
   })
 
-  const { post } = req.body;
+  const { postId } = req.body;
   
-  const getPost = await reddit_instance.getSubmission("123szjn");
-  const comments = await getPost.comments.fetchAll({limit: 100});
+  const getPost = await reddit_instance.getSubmission(postId);
+  const comments = await getPost.expandReplies({limit: 10, depth: 2});
 
   // Rest of the API logic
   res.json({ comments })
