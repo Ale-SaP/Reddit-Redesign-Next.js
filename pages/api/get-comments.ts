@@ -43,14 +43,11 @@ export default async function handler(
     refreshToken: env.REFRESH_TOKEN
   })
 
-  let posts: String;
-  const { selector } = req.body;
-
-  if (selector === "Hot"){ posts = await reddit_instance.getHot()}
-  else if (selector === "Top") { posts = await reddit_instance.getTop()}
-  else if (selector === "New") { posts = await reddit_instance.getNew()}
-  else { posts = await reddit_instance.getHot()}
+  const { post } = req.body;
+  
+  const getPost = await reddit_instance.getSubmission("123szjn");
+  const comments = await getPost.comments.fetchAll({limit: 100});
 
   // Rest of the API logic
-  res.json({ posts })
+  res.json({ comments })
 }

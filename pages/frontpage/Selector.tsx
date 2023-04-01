@@ -12,9 +12,9 @@ export default function Selector() {
     }
 
     return (
-        <div className="">
-          <div className="input-group">
-            <select className="select select-bordered w-full max-w-xs" defaultValue={selCategory} onChange={onChange}>
+        <>
+          <div className="">
+            <select className="select select-primary w-full max-w-xs" defaultValue={selCategory} onChange={onChange}>
               <option disabled value={selCategory}>
                 {selCategory}
               </option>
@@ -23,6 +23,6 @@ export default function Selector() {
               <option value="Top">Top</option>
             </select>
           </div>
-        </div>
+        </>
       );
 }

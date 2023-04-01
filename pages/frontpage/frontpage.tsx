@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 //Components
 import NavBar from '../../components/NavBar';
 import Selector from './Selector';
+import Comments from './comments';
 
 export default function Frontpage() {
 
@@ -14,7 +15,6 @@ export default function Frontpage() {
   const selector = (router.asPath).split("=")[1]
 
   const { data, isLoading } = useQuery<any>(['todos', selector], () => fetchFrontPage(selector))
-  console.log(router.asPath)
 
   if (isLoading) {
     return <h1>Loading!</h1>
@@ -25,7 +25,6 @@ export default function Frontpage() {
       <NavBar />
       <div className="flex flex-col items-center justify-center">
       <Selector />
-
       {data.data.posts.map((post) => (
         <div key={post.id}>
           <div className="w-full max-w-xl rounded overflow-hidden shadow-lg">
@@ -36,12 +35,12 @@ export default function Frontpage() {
                 <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Up</button>
                 <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Down</button>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >...</button>
+                </div>
+                <p className="text-gray-300 text-base mb-3 flex-grow">{post.selftext}</p>
               </div>
-              <p className="text-gray-300 text-base mb-3 flex-grow">{post.selftext}</p>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
       </div>
     </>
   );
