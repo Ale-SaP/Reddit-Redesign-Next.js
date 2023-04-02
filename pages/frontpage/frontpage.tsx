@@ -27,7 +27,7 @@ export default function Frontpage() {
         <div className="flex flex-col items-center justify-center">
           <Selector />
           {data.data.posts.map((post) => (
-            <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.body} />
+            <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.selftext} />
           ))}
         </div>
       </>
