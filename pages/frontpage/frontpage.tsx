@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 
 //Components
 import NavBar from '../../components/NavBar';
-import Selector from './Selector';
+import Selector from '../../components/posts/selector';
 import { useEffect, useState } from 'react';
-import Post from './post';
+import Post from '../../components/posts/post';
 
 
 export default function Frontpage() {
@@ -38,5 +38,5 @@ export default function Frontpage() {
 
 const fetchFrontPage = async (selector: string) => {
   const instance = axios.create({});
-  return await instance.post(`/api/frontpage`, { "selector": selector });
+  return await instance.post(`/api/get-frontpage`, { "selector": selector });
 }
