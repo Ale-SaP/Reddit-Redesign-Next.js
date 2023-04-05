@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Comments from "./comments"
 import SideButtons from "./sideButtons"
+import Images from "./images"
 
 function cutText(text: string, limit: number) {
     if (text.length > limit) {
@@ -58,6 +59,7 @@ export default function Post(props: Parameters) {
                         <div className="flex flex-row p-4">
                             <button className="" onClick={() => handleText()}>{textButton}</button>
                         </div>
+                        <Images thumbnail={props.thumbnail} image={props.image}/>
                         <div className="flex flex-row space-x-4 align-bottom">
                             <button className="btn" onClick={() => handleComments()}>{commentsButton}</button>
                         </div>
@@ -85,4 +87,6 @@ interface Parameters {
     title: string,
     body: string,
     subreddit: string,
+    thumbnail: string,
+    image: string,
 }
