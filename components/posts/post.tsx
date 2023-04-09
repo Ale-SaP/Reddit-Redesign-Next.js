@@ -51,7 +51,7 @@ export default function Post(props: Parameters) {
         <div key={props.id} className="w-full">
             <div className="max-w-xl rounded overflow-hidden shadow-lg">
                 <div className="px-6 py-4 flex">
-                    <SideButtons upvoted={false} downvoated={false} />
+                    <SideButtons upvoted={false} downvoated={false} id={props.id}/>
                     <div className="flex-grow">
                         <div className="font-light italic text-xl mb-1 text-gray-500">{props.subreddit} - u/{props.author}</div>
                         <h1 className="font-bold text-xl mb-2">{props.title}</h1>

@@ -7,7 +7,6 @@ export default function Images(props: Parameters) {
     const onExpand = () => {
         setImageState(imageState === "Expand..." ? "Collapse" : "Expand...");
         setImage(image === props.thumbnail ? props.image : props.thumbnail);
-        console.log(image)
     };
 
     if (props.thumbnail === "default" || props.thumbnail === "self") {

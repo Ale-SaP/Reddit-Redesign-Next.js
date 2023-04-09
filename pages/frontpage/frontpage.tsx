@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 //Components
 import NavBar from '../../components/NavBar';
 import Selector from '../../components/posts/selector';
-import { useEffect, useState } from 'react';
 import Post from '../../components/posts/post';
 
 
@@ -14,7 +13,6 @@ export default function Frontpage() {
   const router = useRouter();
   const selector = (router.asPath).split("=")[1];
   const { data, isLoading } = useQuery<any>(['todos', selector], () => fetchFrontPage(selector));
-  const [ comments, setComment] = useState([""])
 
   if (isLoading) {
     return <h1>Loading!</h1>

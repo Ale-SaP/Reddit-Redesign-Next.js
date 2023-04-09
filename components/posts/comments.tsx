@@ -16,7 +16,6 @@ export default function Comments(props: Parameters) {
     }
 
     if (data) {
-        console.log(data.data.comments.comments)
         return (
             <div>
                 {data.data.comments.comments.length > 0 ? (

@@ -1,0 +1,23 @@
+# import type NextApiRequest, NextApiRequest
+# import cors
+# import env
+# require snoowrap
+
+# Cors methods is ["POST", "GET", "HEAD"]
+# function runMiddleware default
+# async function handler(req: NextApiRequest, res: NextApiResponse)
+    # runMiddleware
+    # reddit_instance is new snoowrapsnoowrap({
+    userAgent: env.USER_AGENT,
+    clientId: env.CLIENT_ID,
+    clientSecret: env.SECRET_KEY,
+    refreshToken: env.REFRESH_TOKEN
+    })
+    # postId in req.body
+    # try:
+        # if is "upvote": reddit_instance.getSubmission(postId).upvote()
+        # else if is "downvote": reddit_instance.getSubmission(postId).downvote()
+        # else if is "save": reddit_instance.getSubmission(postId).save()
+        # res.json text: "Done", status: 202
+    # catch:
+        # res.json text: "Failed", status 401

@@ -1,0 +1,21 @@
+# import type NextApiRequest, NextApiRequest
+# import cors
+# import env
+# require snoowrap
+
+# Cors methods is ["POST", "GET", "HEAD"]
+# function runMiddleware default
+# async function handler(req: NextApiRequest, res: NextApiResponse)
+    # runMiddleware
+    # reddit_instance is new snoowrapsnoowrap({
+    userAgent: env.USER_AGENT,
+    clientId: env.CLIENT_ID,
+    clientSecret: env.SECRET_KEY,
+    refreshToken: env.REFRESH_TOKEN
+    })
+    # selector in req.body
+    # posts is string is:
+        # if is "Top": return reddit_instance.getTop()
+        # else if is "New": return reddit_instance.getNew()
+        # else: return reddit_instance.getHot()
+    # res.json posts
