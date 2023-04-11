@@ -1,0 +1,32 @@
+# import useState, axios
+
+# async function postActions, Parameters: action (string), id (string)
+    #instance as axios.create()
+    # return await instance.post("api/post-actions", {"action": action, "postId": id})
+
+# component SideButtons Parameters: id (string), score (number)
+    # activeUpvoated as "bg-green-500", inactiveUpvoated as "bg-green-700"
+    # activeDownvoated as "bg-red-500", inactiveDownvoated as "bg-red-700"
+    # [upvoated, setUpvoated] as useState(false)
+    # [downvoated. setDownvoated] as useState(false)
+    # [activeButtons, setActiveButtons] as useState([inactiveUpvoated, inactiveDownvoated])
+    
+    # async function handleUpvote: 
+        # if upvote is true: 
+            # upvote is false
+            # setActiveButtons([inactiveUpvoated, inactiveDownvoated])
+            # await postActions("none", props.id);
+        # else if upvote was false:
+            # upvote is true and downvote is false
+            # setActiveButtons([activeUpvoated, inactiveDownvoated])
+            # await postActions("upvote", props.id);
+
+    # do the same function as "handleDownvote" but switch upvoted and downvoted, and the styles.
+
+    # return: 
+        <div className="flex flex-col p-2">
+            {props.score ? <h1 className="p-2 text-xl font-semibold">{props.score}</h1> : null}
+            <button className={upvoteClass} onClick={handleUpvoteClick}>⬆️</button>
+            <button className={downvoteClass} onClick={handleDownvoteClick}>⬇️</button>
+            <button >⚙️</button>
+        </div>

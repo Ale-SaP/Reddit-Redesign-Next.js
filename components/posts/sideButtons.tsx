@@ -1,64 +1,64 @@
-import { useEffect, useState } from "react"
+import { useState } from 'react';
 import axios from 'axios';
 
-const postActions = async (action: string, id: string) => {
-  const instance = axios.create({});
-  return await instance.post(`/api/posts-actions`, { "action" : action, "postId" : id});
+async function postActions(action: string, id: string) {
+  const instance = axios.create();
+  const response = await instance.post("api/posts-actions", {"action": action, "postId": id});
+  return response;
 }
 
-export default function SideButtons(props: Parameters) {
+export default function SideButtons(props: Props) {
     const activeUpvoated = 'bg-green-500 hover:bg-green-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
-    const unactiveUpvoated = 'bg-gray-500 hover:bg-green-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
+    const inactiveUpvoated = 'bg-gray-500 hover:bg-green-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
     const activeDownvoated = 'bg-red-500 hover:bg-red-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
-    const unactiveDownvoated =  'bg-gray-500 hover:bg-red-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
+    const inactiveDownvoated =  'bg-gray-500 hover:bg-red-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
 
-    const [upvoated, setUpvoated] = useState(props.upvoted)
-    const [downvoated, setDownvoated] = useState(props.downvoated)
+  const [upvoated, setUpvoated] = useState(false);
+  const [downvoated, setDownvoated] = useState(false);
+  const [activeButtons, setActiveButtons] = useState([inactiveUpvoated, inactiveDownvoated]);
+    
+  async function handleUpvote() {
+    if (upvoated) {
+      setUpvoated(false);
+      setActiveButtons([inactiveUpvoated, inactiveDownvoated]);
+      await postActions("none", props.id);
+    } else {
+      setUpvoated(true);
+      setDownvoated(false);
+      setActiveButtons([activeUpvoated, inactiveDownvoated]);
+      await postActions("upvote", props.id);
+    }
+  }
 
-    const [upvoteClass, setUpvoteClass] = useState(upvoated ? activeUpvoated : unactiveUpvoated);
-    const [downvoteClass, setDownvoteClass] = useState(downvoated ? activeDownvoated : unactiveDownvoated);
+  async function handleDownvote() {
+    if (downvoated) {
+      setDownvoated(false);
+      setActiveButtons([inactiveUpvoated, inactiveDownvoated]);
+      await postActions("none", props.id);
+    } else {
+      setDownvoated(true);
+      setUpvoated(false);
+      setActiveButtons([inactiveUpvoated, activeDownvoated]);
+      await postActions("downvote", props.id);
+    }
+  }
 
-    useEffect(
-        ()=>{
-            if (upvoated) {
-                postActions("upvote", props.id)
-            }
-            else if (downvoated) {
-                postActions("downvote", props.id)
-            }
-            else if (!upvoated && !downvoated) {
-                postActions("none", props.id)
-            }
-        }, [upvoated, downvoated]
-        )
+  const upvoteClass = `btn ${activeButtons[0]}`;
+  const downvoteClass = `btn ${activeButtons[1]}`;
 
-    const handleUpvoteClick = () => {
-        setUpvoated(!upvoated);
-        setUpvoteClass(upvoated ? unactiveUpvoated : activeUpvoated);
-        setDownvoated(false);
-        setDownvoteClass(unactiveDownvoated);
-      };
-      
-      const handleDownvoteClick = () => {
-        setDownvoated(!downvoated);
-        setDownvoteClass(downvoated ? unactiveDownvoated : activeDownvoated);
-        setUpvoated(false);
-        setUpvoteClass(unactiveUpvoated);
-      };      
-
-
-    return (
-        <div className="flex flex-col p-2">
-            <button className={upvoteClass} onClick={handleUpvoteClick}>⬆️</button>
-            <button className={downvoteClass} onClick={handleDownvoteClick}>⬇️</button>
-            <button >⚙️</button>
-        </div>
-    )
+  return (
+    <div className="flex flex-col p-2">
+      {props.score ? <h1 className="p-2 text-xl font-semibold">{props.score}</h1> : null}
+      <button className={upvoteClass} onClick={handleUpvote}>⬆️</button>
+      <button className={downvoteClass} onClick={handleDownvote}>⬇️</button>
+      <button >⚙️</button>
+    </div>
+  );
 }
 
-
-interface Parameters {
-    upvoted: boolean,
-    downvoated: boolean,
+interface Props {
     id: string,
+    score: number,
+    type: string,
 }
+//type refers to if we are trying to interact with a post or with a comment or else.

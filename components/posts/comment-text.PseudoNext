@@ -1,0 +1,16 @@
+#import useState
+
+#component CommentText(props: {comment: text})
+    # [shortComment, setComment] is useState: function: 
+        # if comment.lenght is over 100: return comment.slice(0, 100)
+        # else: return comment
+    # [buttonText, setBT] is useState("Show More")
+    # const onClick:
+        # if shortComment.length < comment.length: setComment(comment) and setBT("Show Less") 
+        # else: setComment(comment.slice(0, 100)) and setBT("Show More") 
+    # return: 
+        <div>
+            <h1>{shortComment}</h1>
+            {if comment > 100 show
+            <button onclick=onClick className="btn">{buttonText}</button> }
+        </div>

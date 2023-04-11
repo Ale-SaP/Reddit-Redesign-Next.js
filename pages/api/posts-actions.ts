@@ -55,7 +55,6 @@ export default async function handler(
     } else if (action === 'save') {
       post.save()
     } else {
-      console.log("a")
     }
     res.status(202).json({ text: 'Done' })
   } catch (error) {
