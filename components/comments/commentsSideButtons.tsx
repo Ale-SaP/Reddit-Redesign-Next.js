@@ -3,11 +3,11 @@ import axios from 'axios';
 
 async function postActions(action: string, id: string) {
   const instance = axios.create();
-  const response = await instance.post("api/posts-actions", {"action": action, "postId": id});
+  const response = await instance.post("api/comments-actions", {"action": action, "postId": id});
   return response;
 }
 
-export default function SideButtons(props: Props) {
+export default function CommentsSideButtons(props: Props) {
     const activeUpvoated = 'bg-green-500 hover:bg-green-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
     const inactiveUpvoated = 'bg-gray-500 hover:bg-green-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
     const activeDownvoated = 'bg-red-500 hover:bg-red-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
@@ -48,7 +48,8 @@ export default function SideButtons(props: Props) {
 
   return (
     <div className="flex flex-col p-2 content-center">
-      <h1 className="p-1 m-2 text-xl bg-origin-padding rounded text-white font-semibold justify-center">{props.score}</h1>
+      {props.score < 1 ? <h1 className="p-2 text-white text-xl font-semibold justify-center">{props.score}</h1> 
+      : <h1 className="p-2 text-xl text-white font-semibold justify-center">{props.score}</h1> }
       <button className={upvoteClass} onClick={handleUpvote}>⬆️</button>
       <button className={downvoteClass} onClick={handleDownvote}>⬇️</button>
       <button >⚙️</button>
@@ -60,4 +61,3 @@ interface Props {
     id: string,
     score: number,
 }
-//type refers to if we are trying to interact with a post or with a comment or else.

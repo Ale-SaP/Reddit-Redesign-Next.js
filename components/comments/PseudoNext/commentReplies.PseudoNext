@@ -1,0 +1,29 @@
+# import useState
+# Interface Props has: 
+    # array of objects with many different types
+
+# component CommentReplies(props: Props):
+    # [commentsLoaded, setComments] = useState(false)
+    # [commentsButton, setCommentsButton] = useState("Show Comments")
+
+    # function onclick: 
+        # if commentsLoaded is false: 
+            set commentsLoaded to true
+        # else:
+            set commentsLoaded to false
+
+    # return
+        <button>{commentsButton}</button>
+        { if commentsLoaded return
+            { map props as "comment" :
+                <div className="flex">
+                    <CommentsSideButtons id=comment.id score=comment.score />
+                    <p classname: shade of gray and small text in tailwinds> 
+                        u/{comment.author} at {date.toDateString()}, {date.getHours()}:{date.getMinutes()}
+                    </p>
+                    <CommentText text=comment.body/>
+                    { if replies is longer than 0: <CommentReplies props is comment.comments /> }
+                </div>
+            }
+        }
+        </div>

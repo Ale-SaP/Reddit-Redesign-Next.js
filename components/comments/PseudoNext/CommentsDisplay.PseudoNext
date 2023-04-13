@@ -1,0 +1,30 @@
+# import useState
+# Interface Props has: 
+    # array of objects with many different types
+
+# component CommentsDisplay(props: Props):
+    # [subCommentsLoaded, setComments] = useState(false)
+    # [subCommentsButton, setCommentsButton] = useState("Show Comments")
+
+    # function onclick: 
+        # if commentsLoaded is false: 
+            set subCommentsLoaded to true
+        # else:
+            set subCommentsLoaded to false
+
+    # return
+        { map props as "comment" :
+            <div className="flex">
+                <CommentsSideButtons id=comment.id score=comment.score />
+                <p classname: shade of gray and small text in tailwinds> 
+                    u/{comment.author} at {date.toDateString()}, {date.getHours()}:{date.getMinutes()}
+                </p>
+                <CommentText text=comment.body/>
+                { if comment.replies is longer than 0:
+                    <button>{subCommentsButton}</button>
+                        { if subCommentsLoaded: <CommentsDisplay Props=comment.Props>
+                        }        
+                }
+                </div>
+            }
+        </div>

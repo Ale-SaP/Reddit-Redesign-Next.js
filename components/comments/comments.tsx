@@ -1,7 +1,8 @@
 import { useQuery } from "react-query";
 import axios from "axios";
-import CommentText from "./comment-text";
-import SideButtons from "./sideButtons";
+import CommentText from "./commentText";
+import CommentsSideButtons from "./commentsSideButtons";
+import CommentReplies from "./commentReplies";
 
 const fetchComment = async (postId: string) => {
     const instance = axios.create({});
@@ -23,12 +24,13 @@ export default function Comments(props: Parameters) {
                 {data.data.comments.comments.length > 0 ? (
                     data.data.comments.comments.map((comment) => {
                         const date = new Date(comment.created * 1000);
+                        console.log(comment)
                         return (
                             <div key={comment.id} className="p-2 my-2 shadow-md flex">
-                                <SideButtons id={comment.id} score={comment.score} type={"comment"}/>
+                                <CommentsSideButtons id={comment.id} score={comment.score}/>
                                 <div className="p-4" key={comment.id}>
                                     <p className="text-xs">
-                                        u/{comment.author} at {date.toDateString()}
+                                        u/{comment.author} at {date.toDateString()}, {date.getHours()}:{date.getMinutes()}
                                     </p>
                                     <CommentText comment={comment.body} />
                                 </div>

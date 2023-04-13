@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Comments from "./comments"
+import Comments from "../comments/comments"
 import SideButtons from "./sideButtons"
 import Images from "./images"
 
@@ -49,9 +49,9 @@ export default function Post(props: Parameters) {
 
     return (
         <div key={props.id} className="w-full">
-            <div className="max-w-xl rounded overflow-hidden shadow-lg">
+            <div className="max-w-xl rounded overflow-hidden shadow-xl my-2">
                 <div className="px-6 py-4 flex">
-                    <SideButtons id={props.id} score={props.score} type={"post"}/>
+                    <SideButtons id={props.id} score={props.score}/>
                     <div className="flex-grow">
                         <div className="font-light italic text-xl mb-1 text-gray-500">{props.subreddit} - u/{props.author}</div>
                         <h1 className="font-bold text-xl mb-2">{props.title}</h1>
