@@ -26,7 +26,7 @@ export default function Frontpage() {
           <Selector />
           {data.data.posts.map((post) => (
             <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.selftext} 
-            thumbnail={post.thumbnail} image={post.url} score={post.score}/>
+            thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id}/>
           ))}
         </div>
       </>

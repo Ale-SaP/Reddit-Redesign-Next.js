@@ -43,15 +43,12 @@ export default function CommentsSideButtons(props: Props) {
     }
   }
 
-  const upvoteClass = `btn ${activeButtons[0]}`;
-  const downvoteClass = `btn ${activeButtons[1]}`;
-
   return (
     <div className="flex flex-col p-2 content-center">
       {props.score < 1 ? <h1 className="p-2 text-white text-xl font-semibold justify-center">{props.score}</h1> 
       : <h1 className="p-2 text-xl text-white font-semibold justify-center">{props.score}</h1> }
-      <button className={upvoteClass} onClick={handleUpvote}>⬆️</button>
-      <button className={downvoteClass} onClick={handleDownvote}>⬇️</button>
+      <button className={activeButtons[0]} onClick={handleUpvote}>⬆️</button>
+      <button className={activeButtons[1]} onClick={handleDownvote}>⬇️</button>
       <button >⚙️</button>
     </div>
   );

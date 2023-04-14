@@ -27,7 +27,7 @@ const CommentText = (props: {comment: string}) => {
         <div>
           <h1>{shortComment}</h1>
           {props.comment.length > 150 &&
-            <button onClick={onClick} className="btn btn-xs">{buttonText}</button>
+            <button onClick={onClick} className="pt-2">{buttonText}</button>
           }
         </div>
       }

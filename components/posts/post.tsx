@@ -1,7 +1,8 @@
 import { useState } from "react"
-import Comments from "../comments/comments"
+import CommentsDisplay from "../comments/commentsDisplay"
 import SideButtons from "./sideButtons"
 import Images from "./images"
+import CommentsHandler from "../comments/commentsHandler"
 
 function cutText(text: string, limit: number) {
     if (text.length > limit) {
@@ -66,7 +67,7 @@ export default function Post(props: Parameters) {
                         <div style={{ display: show }}>
                             {commentsLoaded ? (
                                 <>
-                                    <Comments id={props.id} />
+                                    <CommentsHandler id={props.id}/>
                                 </>
                             ) : (
                                 <></>
