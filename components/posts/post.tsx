@@ -1,5 +1,4 @@
 import { useState } from "react"
-import CommentsDisplay from "../comments/commentsDisplay"
 import SideButtons from "./sideButtons"
 import Images from "./images"
 import CommentsHandler from "../comments/commentsHandler"
@@ -49,34 +48,33 @@ export default function Post(props: Parameters) {
     }
 
     return (
-        <div key={props.id} className="w-full">
-            <div className="max-w-xl rounded overflow-hidden shadow-xl my-2">
-                <div className="px-6 py-4 flex">
-                    <SideButtons id={props.id} score={props.score}/>
-                    <div className="flex-grow">
-                        <div className="font-light italic text-xl mb-1 text-gray-500">{props.subreddit} - u/{props.author}</div>
-                        <h1 className="font-bold text-xl mb-2">{props.title}</h1>
+        <div key={props.id} className="rounded overflow-hidden shadow-xl my-2">
+            <div className="py-4 flex">
+                <SideButtons id={props.id} score={props.score} />
+                <div>
+                    <div className="font-light italic text-xl mb-1 text-gray-500">{props.subreddit} - u/{props.author}</div>
+                    <h1 className="font-bold text-xl mb-2">{props.title}</h1>
+                    {text && <>
                         <p className="text-gray-300 text-base mb-3 flex-grow">{text}</p>
                         <div className="flex flex-row p-4">
                             <button className="" onClick={() => handleText()}>{textButton}</button>
                         </div>
-                        <Images thumbnail={props.thumbnail} image={props.image}/>
-                        <div className="flex flex-row space-x-4 align-bottom">
-                            <button className="btn" onClick={() => handleComments()}>{commentsButton}</button>
-                        </div>
-                        <div style={{ display: show }}>
-                            {commentsLoaded ? (
-                                <>
-                                    <CommentsHandler id={props.id}/>
-                                </>
-                            ) : (
-                                <></>
-                            )}
-                        </div>
+                        </>}
+                    <Images thumbnail={props.thumbnail} image={props.image} />
+                    <div className="flex flex-row space-x-4 align-bottom">
+                        <button className="btn" onClick={() => handleComments()}>{commentsButton}</button>
+                    </div>
+                    <div style={{ display: show }} className="overflow-x-auto">
+                        {commentsLoaded ? (
+                            <CommentsHandler id={props.id} />
+                        ) : (
+                            null
+                        )}
                     </div>
                 </div>
             </div>
         </div>
+
 
 
     )

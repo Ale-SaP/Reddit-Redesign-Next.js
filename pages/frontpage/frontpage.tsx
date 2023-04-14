@@ -24,10 +24,12 @@ export default function Frontpage() {
         <NavBar />
         <div className="flex flex-col items-center justify-center">
           <Selector />
-          {data.data.posts.map((post) => (
-            <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.selftext} 
-            thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id}/>
-          ))}
+          <div className='max-w-screen-md'>
+            {data.data.posts.map((post) => (
+              <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.selftext}
+                thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id} />
+            ))}
+          </div>
         </div>
       </>
     );

@@ -9,24 +9,13 @@ interface Props {
 }
 
 export default function CommentsDisplay({ comments }: Props) {
-  if (comments[0].depth == 0) {
-    return (
-      <div>
-        {comments.map((comment) => (
-          <CommentDisplay key={comment.id} comment={comment} />
-        ))}
-      </div>
-    );
-  }
-  else {
-    return (
-      <div>
-        {comments["replies"].map((comment) => (
-          <CommentDisplay key={comment.id} comment={comment} />
-        ))}
-      </div>
-    );
-  }
+  return (
+    <div>
+      {comments.map((comment) => (
+        <CommentDisplay key={comment.id} comment={comment} />
+      ))}
+    </div>
+  );
 }
 
 interface CommentDisplayProps {
@@ -42,7 +31,7 @@ function CommentDisplay({ comment }: CommentDisplayProps) {
 
   return (
     <>
-      <div key={comment.id} className="p-2 my-2 shadow-md flex">
+      <div key={comment.id} className="my-2 shadow-md flex bd-solid">
         <CommentsSideButtons id={comment.id} score={comment.score} />
         <div className="p-4" key={comment.id}>
           <p className="text-xs">

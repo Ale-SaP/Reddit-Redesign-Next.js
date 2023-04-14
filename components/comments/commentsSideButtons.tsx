@@ -44,7 +44,7 @@ export default function CommentsSideButtons(props: Props) {
   }
 
   return (
-    <div className="flex flex-col p-2 content-center">
+    <div className="flex flex-col content-center">
       {props.score < 1 ? <h1 className="p-2 text-white text-xl font-semibold justify-center">{props.score}</h1> 
       : <h1 className="p-2 text-xl text-white font-semibold justify-center">{props.score}</h1> }
       <button className={activeButtons[0]} onClick={handleUpvote}>⬆️</button>

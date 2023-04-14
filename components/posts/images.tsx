@@ -21,9 +21,9 @@ export default function Images(props: Parameters) {
     }
 
     return (
-        <div className="py-4">
-            <img src={image} alt="" />
-            <button className="btn btn-xs" onClick={onExpand}>
+        <div className="py-4 max-w-sm">
+            <img src={image} className="hover:max-w-lg" alt="" />
+            <button className="btn btn-xs mt-4" onClick={onExpand}>
                 {imageState}
             </button>
         </div>

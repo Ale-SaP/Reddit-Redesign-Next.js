@@ -47,8 +47,8 @@ export default function SideButtons(props: Props) {
   const downvoteClass = `btn ${activeButtons[1]}`;
 
   return (
-    <div className="flex flex-col p-2 content-center">
-      <h1 className="p-1 m-2 text-xl bg-origin-padding rounded text-white font-semibold justify-center">{props.score}</h1>
+    <div className="flex flex-col p-1">
+      <h1 className="m-2 text-xl bg-origin-padding rounded text-white font-semibold justify-center">{props.score}</h1>
       <button className={upvoteClass} onClick={handleUpvote}>⬆️</button>
       <button className={downvoteClass} onClick={handleDownvote}>⬇️</button>
       <button >⚙️</button>
