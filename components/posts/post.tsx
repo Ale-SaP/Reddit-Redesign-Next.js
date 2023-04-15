@@ -47,11 +47,19 @@ export default function Post(props: Parameters) {
         }
     }
 
+    const dateObj = new Date(props.created * 1000);
+    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+    const hour = dateObj.getHours();
+    const date = dateObj.getDate();
+    const month = dateObj.getMonth() + 1;
+    const year = dateObj.getFullYear();  
+
     return (
-        <div key={props.id} className="rounded overflow-hidden shadow-xl my-2">
+        <div key={props.id} className="rounded overflow-hidden shadow-xl my-2 border-solid border border-slate-700">
             <div className="py-4 flex">
                 <SideButtons id={props.id} score={props.score} />
                 <div>
+                    <div className="font-light italic text-xl mb-1 text-gray-500">{hour}:{minutes} at {date}/{month}/{year}</div>
                     <div className="font-light italic text-xl mb-1 text-gray-500">{props.subreddit} - u/{props.author}</div>
                     <h1 className="font-bold text-xl mb-2">{props.title}</h1>
                     {text && <>
@@ -89,4 +97,5 @@ interface Parameters {
     thumbnail: string,
     image: string,
     score: number,
+    created: number,
 }

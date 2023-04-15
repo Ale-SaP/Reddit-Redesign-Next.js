@@ -1,7 +1,7 @@
 // CommentsDisplay.tsx
 import { useState } from 'react';
 import CommentText from './commentText';
-import CommentsSideButtons from './commentsSideButtons';
+import CommentsButtons from './commentsButtons';
 import Comment from './commentInterface';
 
 interface Props {
@@ -24,23 +24,38 @@ interface CommentDisplayProps {
 
 function CommentDisplay({ comment }: CommentDisplayProps) {
   const [subCommentsLoaded, setSubCommentsLoaded] = useState(false);
+  const [hideComment, setHide] = useState(false)
+  const [dateString] = useState(() => {
+    const dateObj = new Date(comment.created * 1000);
+    return `${dateObj.getHours()}:${dateObj.getMinutes().toString().padStart(2, '0')} - 
+    ${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`
+  });
 
   const handleClick = () => {
     setSubCommentsLoaded(!subCommentsLoaded);
   };
 
+  const handleHide = () => {
+    setHide(!hideComment)
+  }
+
   return (
     <>
-      <div key={comment.id} className="my-2 shadow-md flex bd-solid">
-        <CommentsSideButtons id={comment.id} score={comment.score} />
-        <div className="p-4" key={comment.id}>
-          <p className="text-xs">
-            u/{comment.author} at {comment.created.toString()}
-          </p>
-          <CommentText comment={comment.body} />
-          <div className='py-4'>
+      <div key={comment.id} className="my-2 shadow-md border-solid border border-slate-700">
+        <div className="pl-4 my-4" key={comment.id}>
+          <div className='flex'>
+            <p className="text-xs">
+              u/{comment.author} at {dateString}
+            </p>
+          </div>
+          {!hideComment && <CommentText comment={comment.body} />}
+          <div className='btn-group'>
+            <CommentsButtons id={comment.id} score={comment.score} />
+            <button onClick={handleHide} className='btn btn-sm btn-outline btn-info text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>X</button>
+          </div>
+          <div className='items-center pt-4'>
             {comment.replies.length > 0 && (
-              <button onClick={handleClick} className='btn btn-s'>
+              <button onClick={handleClick} className='text-slate-200 p-1.5 btn btn-sm btn-active btn-ghost hover:bg-violet-900 ml-2'>
                 {subCommentsLoaded ? 'Hide Replies' : 'Show Replies'}
               </button>
             )}

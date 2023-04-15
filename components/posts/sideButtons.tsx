@@ -8,10 +8,10 @@ async function postActions(action: string, id: string) {
 }
 
 export default function SideButtons(props: Props) {
-    const activeUpvoated = 'bg-green-500 hover:bg-green-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
-    const inactiveUpvoated = 'bg-gray-500 hover:bg-green-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
-    const activeDownvoated = 'bg-red-500 hover:bg-red-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
-    const inactiveDownvoated =  'bg-gray-500 hover:bg-red-700 text-white font-bold m-1 py-2 px-2 rounded focus:outline-none focus:shadow-outline'
+  const activeUpvoated = 'btn btn-md bg-green-500 hover:bg-green-700 text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
+  const inactiveUpvoated = 'btn btn-md btn-outline btn-success text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
+  const activeDownvoated = 'btn btn-md bg-red-500 hover:bg-red-700 text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
+  const inactiveDownvoated = 'btn btn-md btn-outline btn-error text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
 
   const [upvoated, setUpvoated] = useState(false);
   const [downvoated, setDownvoated] = useState(false);
@@ -51,7 +51,7 @@ export default function SideButtons(props: Props) {
       <h1 className="m-2 text-xl bg-origin-padding rounded text-white font-semibold justify-center">{props.score}</h1>
       <button className={upvoteClass} onClick={handleUpvote}>⬆️</button>
       <button className={downvoteClass} onClick={handleDownvote}>⬇️</button>
-      <button >⚙️</button>
+      <button className='btn btn-outline btn-info text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>⚙️</button>
     </div>
   );
 }

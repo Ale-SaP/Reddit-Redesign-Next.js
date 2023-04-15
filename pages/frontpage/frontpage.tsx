@@ -27,7 +27,7 @@ export default function Frontpage() {
           <div className='max-w-screen-md'>
             {data.data.posts.map((post) => (
               <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.selftext}
-                thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id} />
+                thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id} created={post.created} />
             ))}
           </div>
         </div>
