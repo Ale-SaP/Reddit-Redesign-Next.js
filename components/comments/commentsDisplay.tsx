@@ -41,7 +41,7 @@ function CommentDisplay({ comment }: CommentDisplayProps) {
 
   return (
     <>
-      <div key={comment.id} className="my-2 shadow-md border-solid border border-slate-700">
+      <div key={comment.id} className="mt-2 drop-shadow-sm shadow-sm border-solid border border-slate-700">
         <div className="pl-4 my-4" key={comment.id}>
           <div className='flex'>
             <p className="text-xs">
@@ -49,16 +49,16 @@ function CommentDisplay({ comment }: CommentDisplayProps) {
             </p>
           </div>
           {!hideComment && <CommentText comment={comment.body} />}
-          <div className='btn-group'>
-            <CommentsButtons id={comment.id} score={comment.score} />
-            <button onClick={handleHide} className='btn btn-sm btn-outline btn-info text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>X</button>
-          </div>
-          <div className='items-center pt-4'>
+          <div className='btn-group p-2'>
+            <CommentsButtons id={comment.id} score={comment.score} locked={comment.locked} />
+            <button onClick={handleHide} className='btn btn-sm btn-outline btn btn-error text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>X</button>
             {comment.replies.length > 0 && (
-              <button onClick={handleClick} className='text-slate-200 p-1.5 btn btn-sm btn-active btn-ghost hover:bg-violet-900 ml-2'>
+              <button onClick={handleClick} className='text-slate-200 p-2 m-1 btn btn-sm btn-ghost hover:bg-violet-900 ml-2'>
                 {subCommentsLoaded ? 'Hide Replies' : 'Show Replies'}
               </button>
             )}
+          </div>
+          <div className='items-center'>
             {subCommentsLoaded && <CommentsDisplay comments={comment.replies} />}
           </div>
         </div>

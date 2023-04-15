@@ -1,8 +1,15 @@
 import { useState } from "react";
 
 export default function Images(props: Parameters) {
-    const [imageState, setImageState] = useState("Expand...");
-    const [image, setImage] = useState(props.thumbnail);
+    const [imageState, setImageState] = useState("Collapse...");
+    const [image, setImage] = useState(() => {
+        if (props.image.includes("https://i.redd.it/")) {
+            return props.image
+        }
+        else {
+            return props.thumbnail
+        }
+    });
 
     const onExpand = () => {
         setImageState(imageState === "Expand..." ? "Collapse" : "Expand...");
@@ -15,9 +22,9 @@ export default function Images(props: Parameters) {
 
     if (!props.image.includes("https://i.redd.it/")) {
         return (
-        <div className="py-4">
-            <img src={image} alt="" />
-        </div>)
+            <div className="py-4 max-w-sm">
+                <img src={image} alt="" />
+            </div>)
     }
 
     return (

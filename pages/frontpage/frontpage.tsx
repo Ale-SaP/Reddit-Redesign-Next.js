@@ -20,18 +20,17 @@ export default function Frontpage() {
 
   if (data) {
     return (
-      <>
+      <div className=''>
         <NavBar />
-        <div className="flex flex-col items-center justify-center">
-          <Selector />
-          <div className='max-w-screen-md'>
+        <div className="py-8 bg-gray-900 flex flex-col items-center justify-center">
+          <div className='max-w-screen-md bg-slate-900'>
             {data.data.posts.map((post) => (
               <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.selftext}
                 thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id} created={post.created} />
             ))}
           </div>
         </div>
-      </>
+      </div>
     );
 
   }

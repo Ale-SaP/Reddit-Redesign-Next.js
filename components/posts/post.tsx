@@ -58,10 +58,11 @@ export default function Post(props: Parameters) {
         <div key={props.id} className="rounded overflow-hidden shadow-xl my-2 border-solid border border-slate-700">
             <div className="py-4 flex">
                 <SideButtons id={props.id} score={props.score} />
+
                 <div>
-                    <div className="font-light italic text-xl mb-1 text-gray-500">{hour}:{minutes} at {date}/{month}/{year}</div>
-                    <div className="font-light italic text-xl mb-1 text-gray-500">{props.subreddit} - u/{props.author}</div>
-                    <h1 className="font-bold text-xl mb-2">{props.title}</h1>
+                    <div className="font-bold italic text-xl text-gray-500">{props.subreddit}</div>
+                    <div className="text-md italic font-light mb-2">u/{props.author} - {hour}:{minutes} at {date}/{month}/{year}</div>
+                    <h1 className="font-bold text-xl mb-1">{props.title}</h1>
                     {text && <>
                         <p className="text-gray-300 text-base mb-3 flex-grow">{text}</p>
                         <div className="flex flex-row p-4">
@@ -70,7 +71,7 @@ export default function Post(props: Parameters) {
                         </>}
                     <Images thumbnail={props.thumbnail} image={props.image} />
                     <div className="flex flex-row space-x-4 align-bottom">
-                        <button className="btn" onClick={() => handleComments()}>{commentsButton}</button>
+                        <button className="btn btn-accent" onClick={() => handleComments()}>{commentsButton}</button>
                     </div>
                     <div style={{ display: show }} className="overflow-x-auto">
                         {commentsLoaded ? (

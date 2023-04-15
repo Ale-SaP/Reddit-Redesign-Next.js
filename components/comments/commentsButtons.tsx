@@ -50,9 +50,16 @@ export default function CommentsButtons(props: Props) {
       ) : (
         <h1 className="p-2 text-md text-white font-semibold justify-center">{props.score}</h1>
       )}
+      {!props.locked ? <>
       <button className={activeButtons[0]} onClick={handleUpvote}>⬆️</button>
       <button className={activeButtons[1]} onClick={handleDownvote}>⬇️</button>
       <button className='btn btn-sm btn-outline btn-info text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>⚙️</button>
+        </> : 
+        <>
+          <button className="btn btn-sm btn-outline btn-warning p-2 m-1" >🔒</button>
+        </>
+        }
+
     </>
 
   );
@@ -61,4 +68,5 @@ export default function CommentsButtons(props: Props) {
 interface Props {
   id: string,
   score: number,
+  locked: boolean,
 }
