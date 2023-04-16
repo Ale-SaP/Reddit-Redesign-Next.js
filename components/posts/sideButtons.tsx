@@ -3,7 +3,7 @@ import axios from 'axios';
 
 async function postActions(action: string, id: string) {
   const instance = axios.create();
-  const response = await instance.post("api/posts-actions", {"action": action, "postId": id});
+  const response = await instance.post("api/posts-actions", { "action": action, "postId": id });
   return response;
 }
 
@@ -16,7 +16,7 @@ export default function SideButtons(props: Props) {
   const [upvoated, setUpvoated] = useState(false);
   const [downvoated, setDownvoated] = useState(false);
   const [activeButtons, setActiveButtons] = useState([inactiveUpvoated, inactiveDownvoated]);
-    
+
   async function handleUpvote() {
     if (upvoated) {
       setUpvoated(false);
@@ -48,16 +48,28 @@ export default function SideButtons(props: Props) {
 
   return (
     <div className="flex flex-col p-1">
-      <h1 className="m-2 text-xl bg-origin-padding rounded text-white font-semibold justify-center">{props.score}</h1>
-      <button className={upvoteClass} onClick={handleUpvote}>⬆️</button>
-      <button className={downvoteClass} onClick={handleDownvote}>⬇️</button>
+      {
+        props.archived ?
+          <>
+            <button className="btn btn-outline btn-secondary p-2 m-1" >📁</button>
+          </> :
+          !props.locked ?
+            <>
+              <button className={upvoteClass} onClick={handleUpvote}>⬆️</button>
+              <button className={downvoteClass} onClick={handleDownvote}>⬇️</button>
+            </> :
+            <>
+              <button className="btn btn-outline btn-warning p-2 m-1" >🔒</button>
+            </>
+      }
       <button className='btn btn-outline btn-info text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>⚙️</button>
-    </div>
-  );
+    </div>)
 }
 
 interface Props {
-    id: string,
-    score: number,
+  id: string,
+  score: number,
+  archived: boolean,
+  locked: boolean,
 }
 //type refers to if we are trying to interact with a post or with a comment or else.

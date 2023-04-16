@@ -9,15 +9,21 @@ interface Props {
 }
 
 async function fetchComment(postId: string): Promise<CommentInterface[]> {
-    const response = await axios.post(`/api/get-comments`, { postId });
-    return response.data;
-  }
+  const response = await axios.post(`/api/get-comments`, { postId });
+  return response.data;
+}
 
 export default function CommentsHandler(props: Props) {
   const { data, isLoading, isError } = useQuery(['comments', props.id], () => fetchComment(props.id));
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="inset-0 flex justify-center items-center">
+        <div className="w-full max-w-md p-8 rounded-md shadow-lg">
+            <progress className="progress progress-primary" value="50" max="100"></progress>
+          <h1 className='font-bold text-xl text-center'>Loading!</h1>
+        </div>
+      </div>)
   }
 
   if (isError) {
@@ -26,6 +32,7 @@ export default function CommentsHandler(props: Props) {
 
   if (data) {
     return (
-    <CommentsDisplay comments={data["comments"]} />
-  ); }
+      <CommentsDisplay comments={data["comments"]} />
+    );
+  }
 }

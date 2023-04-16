@@ -52,23 +52,25 @@ export default function Post(props: Parameters) {
     const hour = dateObj.getHours();
     const date = dateObj.getDate();
     const month = dateObj.getMonth() + 1;
-    const year = dateObj.getFullYear();  
+    const year = dateObj.getFullYear();
 
     return (
         <div key={props.id} className="rounded overflow-hidden shadow-xl my-2 border-solid border border-slate-700">
             <div className="py-4 flex">
-                <SideButtons id={props.id} score={props.score} />
+                <SideButtons id={props.id} score={props.score} archived={props.archived} locked={props.locked}/>
 
-                <div>
-                    <div className="font-bold italic text-xl text-gray-500">{props.subreddit}</div>
-                    <div className="text-md italic font-light mb-2">u/{props.author} - {hour}:{minutes} at {date}/{month}/{year}</div>
-                    <h1 className="font-bold text-xl mb-1">{props.title}</h1>
+                <div className="px-2">
+                    <div className="mb-2">
+                        <div className="font-bold italic text-xl text-gray-500">{props.subreddit}</div>
+                        <div className="text-md italic font-light">u/{props.author} - {hour}:{minutes} at {date}/{month}/{year}</div>
+                        <h1 className="font-bold text-xl">{props.title}</h1>
+                    </div>
                     {text && <>
                         <p className="text-gray-300 text-base mb-3 flex-grow">{text}</p>
                         <div className="flex flex-row p-4">
                             <button className="" onClick={() => handleText()}>{textButton}</button>
                         </div>
-                        </>}
+                    </>}
                     <Images thumbnail={props.thumbnail} image={props.image} />
                     <div className="flex flex-row space-x-4 align-bottom">
                         <button className="btn btn-accent" onClick={() => handleComments()}>{commentsButton}</button>
@@ -99,4 +101,7 @@ interface Parameters {
     image: string,
     score: number,
     created: number,
+
+    archived: boolean,
+    locked: boolean,
 }

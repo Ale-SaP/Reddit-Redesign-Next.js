@@ -15,18 +15,26 @@ export default function Frontpage() {
   const { data, isLoading } = useQuery<any>(['todos', selector], () => fetchFrontPage(selector));
 
   if (isLoading) {
-    return <h1>Loading!</h1>
+    return (
+      <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-70 z-50">
+        <div className="w-full max-w-md p-8 bg-black rounded-md shadow-lg">
+            <progress className="progress progress-primary" value="100" max="100"></progress>
+          <h1 className='font-bold text-xl text-center'>Loading!</h1>
+        </div>
+      </div>
+
+    )
   }
 
   if (data) {
     return (
       <div className=''>
         <NavBar />
-        <div className="py-8 bg-gray-900 flex flex-col items-center justify-center">
+        <div className="py-20 bg-gray-900 flex flex-col items-center justify-center">
           <div className='max-w-screen-md bg-slate-900'>
             {data.data.posts.map((post) => (
               <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.selftext}
-                thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id} created={post.created} />
+                thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id} created={post.created} archived={post.archived} locked={post.locked}/>
             ))}
           </div>
         </div>
