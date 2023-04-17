@@ -2,6 +2,7 @@ import { useState } from "react"
 import SideButtons from "./sideButtons"
 import Images from "./images"
 import CommentsHandler from "../comments/commentsHandler"
+import PostInterface from "./postInterface"
 
 function cutText(text: string, limit: number) {
     if (text.length > limit) {
@@ -11,25 +12,25 @@ function cutText(text: string, limit: number) {
     else { return text }
 }
 
-export default function Post(props: Parameters) {
+export default function Post(props: { post: PostInterface })  {
     const [commentsLoaded, setComments] = useState(false)
     const [show, setShow] = useState("")
     const [commentsButton, setCommentsButton] = useState("Show Comments")
 
     const [textButton, setTextButton] = useState(() => {
-        if ((props.body).length > 150) { return "Show More..." }
+        if ((props.post.selftext).length > 200) { return "Show More..." }
         else { return "" }
     })
-    const [text, setText] = useState(cutText(props.body, 200))
+    const [text, setText] = useState(cutText(props.post.selftext, 200))
 
     const handleText = () => {
         if (textButton === "Show More...") {
             setTextButton("Show less...")
-            setText(props.body)
+            setText(props.post.selftext)
         }
         else {
             setTextButton("Show More...")
-            setText(cutText(props.body, 150))
+            setText(cutText(props.post.selftext, 150))
         }
     }
 
@@ -47,7 +48,7 @@ export default function Post(props: Parameters) {
         }
     }
 
-    const dateObj = new Date(props.created * 1000);
+    const dateObj = new Date(props.post.created * 1000);
     const minutes = dateObj.getMinutes().toString().padStart(2, '0');
     const hour = dateObj.getHours();
     const date = dateObj.getDate();
@@ -55,15 +56,16 @@ export default function Post(props: Parameters) {
     const year = dateObj.getFullYear();
 
     return (
-        <div key={props.id} className="rounded overflow-hidden shadow-xl my-2 border-solid border border-slate-700">
+        <div key={props.post.id} className="rounded overflow-hidden shadow-xl my-2 border-solid border border-slate-700">
             <div className="py-4 flex">
-                <SideButtons id={props.id} score={props.score} archived={props.archived} locked={props.locked}/>
+                <SideButtons id={props.post.id} score={props.post.score} archived={props.post.archived} locked={props.post.locked}
+                link={props.post.permalink} isSaved={props.post.saved}/>
 
                 <div className="px-2">
                     <div className="mb-2">
-                        <div className="font-bold italic text-xl text-gray-500">{props.subreddit}</div>
-                        <div className="text-md italic font-light">u/{props.author} - {hour}:{minutes} at {date}/{month}/{year}</div>
-                        <h1 className="font-bold text-xl">{props.title}</h1>
+                        <div className="font-bold italic text-xl text-gray-500">{props.post.subreddit}</div>
+                        <div className="text-md italic font-light">u/{props.post.author} - {hour}:{minutes} at {date}/{month}/{year}</div>
+                        <h1 className="font-bold text-xl">{props.post.title}</h1>
                     </div>
                     {text && <>
                         <p className="text-gray-300 text-base mb-3 flex-grow">{text}</p>
@@ -71,13 +73,13 @@ export default function Post(props: Parameters) {
                             <button className="" onClick={() => handleText()}>{textButton}</button>
                         </div>
                     </>}
-                    <Images thumbnail={props.thumbnail} image={props.image} />
+                    <Images thumbnail={props.post.thumbnail} image={props.post.url} />
                     <div className="flex flex-row space-x-4 align-bottom">
-                        <button className="btn btn-accent" onClick={() => handleComments()}>{commentsButton}</button>
+                        <button className="btn btn-primary" onClick={() => handleComments()}>{commentsButton}</button>
                     </div>
                     <div style={{ display: show }} className="overflow-x-auto">
                         {commentsLoaded ? (
-                            <CommentsHandler id={props.id} />
+                            <CommentsHandler id={props.post.id} />
                         ) : (
                             null
                         )}
@@ -89,19 +91,4 @@ export default function Post(props: Parameters) {
 
 
     )
-}
-
-interface Parameters {
-    author: string,
-    id: string,
-    title: string,
-    body: string,
-    subreddit: string,
-    thumbnail: string,
-    image: string,
-    score: number,
-    created: number,
-
-    archived: boolean,
-    locked: boolean,
 }

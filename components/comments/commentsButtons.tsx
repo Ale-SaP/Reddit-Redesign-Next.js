@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import ExtraActions from '../ExtraActions';
 
 async function postActions(action: string, id: string) {
   const instance = axios.create();
@@ -7,7 +8,7 @@ async function postActions(action: string, id: string) {
   return response;
 }
 
-export default function CommentsButtons(props: Props) {
+export default function CommentsButtons(props: { comment: Props }) {
   const activeUpvoated = 'btn btn-sm bg-green-500 hover:bg-green-700 text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
   const inactiveUpvoated = 'btn btn-sm btn-outline btn-success text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
   const activeDownvoated = 'btn btn-sm bg-red-500 hover:bg-red-700 text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
@@ -21,12 +22,12 @@ export default function CommentsButtons(props: Props) {
     if (upvoated) {
       setUpvoated(false);
       setActiveButtons([inactiveUpvoated, inactiveDownvoated]);
-      await postActions("none", props.id);
+      await postActions("none", props.comment.id);
     } else {
       setUpvoated(true);
       setDownvoated(false);
       setActiveButtons([activeUpvoated, inactiveDownvoated]);
-      await postActions("upvote", props.id);
+      await postActions("upvote", props.comment.id);
     }
   }
 
@@ -34,34 +35,41 @@ export default function CommentsButtons(props: Props) {
     if (downvoated) {
       setDownvoated(false);
       setActiveButtons([inactiveUpvoated, inactiveDownvoated]);
-      await postActions("none", props.id);
+      await postActions("none", props.comment.id);
     } else {
       setDownvoated(true);
       setUpvoated(false);
       setActiveButtons([inactiveUpvoated, activeDownvoated]);
-      await postActions("downvote", props.id);
+      await postActions("downvote", props.comment.id);
     }
   }
 
   return (
     <>
-      {props.score ? (
-        <h1 className="p-2 text-white text-md font-semibold justify-center">{props.score}</h1>
+      {props.comment.score ? (
+        <h1 className="p-2 text-white text-md font-semibold justify-center">{props.comment.score}</h1>
       ) : (
-        <h1 className="p-2 text-md text-white font-semibold justify-center">{props.score}</h1>
+        <h1 className="p-2 text-md text-white font-semibold justify-center">{props.comment.score}</h1>
       )}
-      {props.archived ?
+      {props.comment.archived ?
         <>
           <button className="btn btn-sm btn-outline btn-secondary p-2 m-1" >📁</button>
         </> :
-        props.locked ?
+        props.comment.locked ?
           <>
             <button className="btn btn-sm btn-outline btn-warning p-2 m-1" >🔒</button>
           </>
           : <>
             <button className={activeButtons[0]} onClick={handleUpvote}>⬆️</button>
             <button className={activeButtons[1]} onClick={handleDownvote}>⬇️</button>
-            <button className='btn btn-sm btn-outline btn-info text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>⚙️</button>
+            <div className="dropdown dropdown-top">
+              <button>
+                <label tabIndex={0} className="btn btn-sm btn-outline btn-primary rounded focus:shadow-outline p-2 m-1"> ⚙️ </label>
+              </button>
+              <ul tabIndex={0} className="dropdown-content menu shadow bg-[#2E1065] focus:bg-teal-300 outline outline-1 rounded-box w-40 text-white">
+                <ExtraActions id={props.comment.id} link={props.comment.permalink} isSaved={props.comment.saved} />
+              </ul>
+            </div>
           </>
       }
 
@@ -76,4 +84,6 @@ interface Props {
   score: number,
   locked: boolean,
   archived: boolean,
+  saved: boolean,
+  permalink: string,
 }

@@ -4,15 +4,14 @@ import { useRouter } from 'next/router';
 
 //Components
 import NavBar from '../../components/NavBar';
-import Selector from '../../components/posts/selector';
 import Post from '../../components/posts/post';
-
+import PostInterface from '../../components/posts/postInterface';
 
 export default function Frontpage() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const selector = (router.asPath).split("=")[1];
-  const { data, isLoading } = useQuery<any>(['todos', selector], () => fetchFrontPage(selector));
+  const { data, isLoading } = useQuery<PostInterface[]>(['todos', selector], () => fetchFrontPage(selector));
 
   if (isLoading) {
     return (
@@ -32,9 +31,8 @@ export default function Frontpage() {
         <NavBar />
         <div className="py-20 bg-gray-900 flex flex-col items-center justify-center">
           <div className='max-w-screen-md bg-slate-900'>
-            {data.data.posts.map((post) => (
-              <Post id={post.id} author={post.author} subreddit={post.subreddit_name_prefixed} title={post.title} body={post.selftext}
-                thumbnail={post.thumbnail} image={post.url} score={post.score} key={post.id} created={post.created} archived={post.archived} locked={post.locked}/>
+            {data.map((post) => (
+              <Post post={post} key={post.id}/>
             ))}
           </div>
         </div>
@@ -44,7 +42,8 @@ export default function Frontpage() {
   }
 }
 
-const fetchFrontPage = async (selector: string) => {
+const fetchFrontPage = async (selector: string): Promise<PostInterface[]> => {
   const instance = axios.create({});
-  return await instance.post(`/api/get-frontpage`, { "selector": selector });
+  const data =  await instance.post(`/api/get-frontpage`, { "selector": selector });
+  return data.data.posts
 }

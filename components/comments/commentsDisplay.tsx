@@ -50,11 +50,11 @@ function CommentDisplay({ comment }: CommentDisplayProps) {
           </div>
           {!hideComment && <CommentText comment={comment.body} />}
           <div className='btn-group p-2'>
-            <CommentsButtons id={comment.id} score={comment.score} locked={comment.locked} archived={comment.archived}/>
+            <CommentsButtons comment={comment} />
             <button onClick={handleHide} className='btn btn-sm btn-outline btn btn-error text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>X</button>
             {comment.replies.length > 0 && (
               <button onClick={handleClick} className='text-slate-200 p-2 m-1 btn btn-sm btn-ghost hover:bg-violet-900 ml-2'>
-                {subCommentsLoaded ? 'Hide Replies' : 'Show Replies'}
+                {subCommentsLoaded ? 'Hide 📜' : 'Show 📜'}
               </button>
             )}
           </div>

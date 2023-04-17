@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import ExtraActions from '../ExtraActions';
 
 async function postActions(action: string, id: string) {
   const instance = axios.create();
@@ -48,6 +49,7 @@ export default function SideButtons(props: Props) {
 
   return (
     <div className="flex flex-col p-1">
+      <h1 className="p-2 text-md text-white font-semibold justify-center">{props.score}</h1>
       {
         props.archived ?
           <>
@@ -62,7 +64,12 @@ export default function SideButtons(props: Props) {
               <button className="btn btn-outline btn-warning p-2 m-1" >🔒</button>
             </>
       }
-      <button className='btn btn-outline btn-info text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'>⚙️</button>
+      <div className="dropdown dropdown-top">
+        <label tabIndex={0} className="btn btn-outline btn-primary rounded focus:shadow-outline p-4 m-1"> ⚙️ </label>
+        <ul tabIndex={0} className="dropdown-content menu shadow bg-[#2E1065] focus:bg-teal-300 outline outline-2 rounded-box w-40 text-white">
+          <ExtraActions link={props.link} id={props.id} isSaved={props.isSaved} />
+        </ul>
+      </div>
     </div>)
 }
 
@@ -71,5 +78,7 @@ interface Props {
   score: number,
   archived: boolean,
   locked: boolean,
+  link: string,
+  isSaved: boolean,
 }
 //type refers to if we are trying to interact with a post or with a comment or else.

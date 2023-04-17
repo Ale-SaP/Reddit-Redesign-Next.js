@@ -20,7 +20,7 @@ export default function CommentsHandler(props: Props) {
     return (
       <div className="inset-0 flex justify-center items-center">
         <div className="w-full max-w-md p-8 rounded-md shadow-lg">
-            <progress className="progress progress-primary" value="50" max="100"></progress>
+          <progress className="progress progress-primary" value="50" max="100"></progress>
           <h1 className='font-bold text-xl text-center'>Loading!</h1>
         </div>
       </div>)
@@ -30,9 +30,11 @@ export default function CommentsHandler(props: Props) {
     return <div>Error: Unable to load comments</div>;
   }
 
-  if (data) {
-    return (
-      <CommentsDisplay comments={data["comments"]} />
-    );
+  if (data["comments"].length) {
+    console.log(data)
+    return <CommentsDisplay comments={data["comments"]} />
+  }
+  else {
+    return <h1 className="text-slate-200 p-2 m-1">No comments made yet!</h1>
   }
 }

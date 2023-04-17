@@ -1,0 +1,25 @@
+# import useState, axios
+
+# async function postActions, Parameters: action (string), id (string)
+    # instance as axios.create()
+    # return await instance.post("api/post-actions", {"action": action, "postId": id})
+
+# component ExtraActions Parameters: link (string), isSaved (boolean), id (string),
+    # [saved, setSaved] = useState(isSaved)
+    # async function HandeSave: 
+        # if saved is true: 
+            # postActions("unsave", id)
+            # setSaved to false
+        # else:
+            # postActions("save", id)
+            # setSaved to true
+
+    # return: 
+        <div className="dropdown dropdown-bottom">
+            <label tabIndex={0} className="btn m-1">Click</label>
+                <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a>{if is saved show unsave, else show save}</a></li>
+                    <li><a>Open original</a></li>
+                    <li><a>Copy link</a></li>
+                </ul>
+        </div>
