@@ -8,7 +8,7 @@ async function postActions(action: string, id: string) {
   return response;
 }
 
-export default function SideButtons(props: {post : Props}) {
+export default function SideButtons(props: { post: Props }) {
   const activeUpvoated = 'btn btn-md bg-green-500 hover:bg-green-700 text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
   const inactiveUpvoated = 'btn btn-md btn-outline btn-success text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
   const activeDownvoated = 'btn btn-md bg-red-500 hover:bg-red-700 text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
@@ -17,6 +17,7 @@ export default function SideButtons(props: {post : Props}) {
   const [upvoated, setUpvoated] = useState(false);
   const [downvoated, setDownvoated] = useState(false);
   const [activeButtons, setActiveButtons] = useState([inactiveUpvoated, inactiveDownvoated]);
+  const [extraActions, setExtraActions] = useState(false);
 
   async function handleUpvote() {
     if (upvoated) {
@@ -48,7 +49,7 @@ export default function SideButtons(props: {post : Props}) {
   const downvoteClass = `btn ${activeButtons[1]}`;
 
   return (
-    <div className="flex flex-col p-1">
+    <div className="flex flex-col p-1 max-w-xs">
       <h1 className="p-2 text-md text-white font-semibold justify-center">{props.post.score}</h1>
       {
         props.post.archived ?
@@ -64,12 +65,8 @@ export default function SideButtons(props: {post : Props}) {
               <button className="btn btn-outline btn-warning p-2 m-1" >🔒</button>
             </>
       }
-      <div className="dropdown dropdown-top">
-        <label tabIndex={0} className="btn btn-outline btn-primary rounded focus:shadow-outline p-4 m-1"> ⚙️ </label>
-        <ul tabIndex={0} className="dropdown-content menu shadow bg-[#2E1065] focus:bg-teal-300 outline outline-2 rounded-box w-40 text-white">
-          <ExtraActions link={props.post.permalink} id={props.post.id} isSaved={props.post.saved} />
-        </ul>
-      </div>
+      <button className="btn btn-outline btn-primary rounded focus:shadow-outline p-4 m-1" onClick={() => setExtraActions(!extraActions)}>{extraActions ? "⛔" : "⚙"}</button>
+      {extraActions && <ExtraActions link={props.post.permalink} id={props.post.id} isSaved={props.post.saved} />}
     </div>)
 }
 

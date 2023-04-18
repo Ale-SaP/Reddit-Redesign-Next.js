@@ -17,6 +17,7 @@ export default function CommentsButtons(props: { comment: Props }) {
   const [upvoated, setUpvoated] = useState(false);
   const [downvoated, setDownvoated] = useState(false);
   const [activeButtons, setActiveButtons] = useState([inactiveUpvoated, inactiveDownvoated]);
+  const [extraActions, setExtraActions] = useState(false);
 
   async function handleUpvote() {
     if (upvoated) {
@@ -46,10 +47,10 @@ export default function CommentsButtons(props: { comment: Props }) {
 
   return (
     <>
-      {props.comment.score ? (
+      {props.comment.score >= 0 ? (
         <h1 className="p-2 text-white text-md font-semibold justify-center">{props.comment.score}</h1>
       ) : (
-        <h1 className="p-2 text-md text-white font-semibold justify-center">{props.comment.score}</h1>
+        <h1 className="p-2 text-md text-red-700 font-semibold justify-center">{props.comment.score}</h1>
       )}
       {props.comment.archived ?
         <>
@@ -62,16 +63,12 @@ export default function CommentsButtons(props: { comment: Props }) {
           : <>
             <button className={activeButtons[0]} onClick={handleUpvote}>⬆️</button>
             <button className={activeButtons[1]} onClick={handleDownvote}>⬇️</button>
-            <div className="dropdown dropdown-top">
-              <button>
-                <label tabIndex={0} className="btn btn-sm btn-outline btn-primary rounded focus:shadow-outline p-2 m-1"> ⚙️ </label>
-              </button>
-              <ul tabIndex={0} className="dropdown-content menu shadow bg-[#2E1065] focus:bg-teal-300 outline outline-1 rounded-box w-40 text-white">
-                <ExtraActions id={props.comment.id} link={props.comment.permalink} isSaved={props.comment.saved} />
-              </ul>
-            </div>
           </>
       }
+      <button className="btn btn btn-sm btn-outline btn-primary rounded focus:shadow-outline p-2 m-1" onClick={() => setExtraActions(!extraActions)}>
+        {extraActions ? "⛔" : "⚙"}
+      </button>
+      {extraActions && <ExtraActions id={props.comment.id} link={props.comment.permalink} isSaved={props.comment.saved} />}
 
 
     </>

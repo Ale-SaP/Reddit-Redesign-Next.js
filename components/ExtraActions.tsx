@@ -25,11 +25,13 @@ export default function ExtraActions(props: ExtraActionsProps) {
     }
   }
 
+        //open props.link on other tab when clicked
+  
   return (
     <>
-        <li><a onClick={handleSave}>{saved ? 'Unsave 🚫💾' : 'Save 💾'}</a></li>
-        <li><a href={props.link} target="_blank" rel="noopener noreferrer">Open original ➡️</a></li>
-        <li><a onClick={() => navigator.clipboard.writeText(props.link)}>Copy link 📋</a></li>
+        <button onClick={handleSave} className='btn btn-sm btn-outline btn-secondary p-2 m-1'>{saved ? '🚫💾' : '💾'}</button>
+        <a href={props.link} target="_blank" rel="noreferrer"><button className='btn btn-sm btn-outline btn-secondary p-2 m-1'>Open</button></a>
+        <button onClick={() => navigator.clipboard.writeText(props.link)} className='btn btn-sm btn-outline btn-secondary p-2 m-1'>📋</button>
     </>
   );
 }

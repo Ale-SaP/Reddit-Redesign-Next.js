@@ -55,7 +55,7 @@ export default function Post(props: { post: PostInterface }) {
     return (
         <div key={props.post.id} className="rounded overflow-hidden shadow-xl my-2 border-solid border border-slate-700">
             <div className="py-4 flex">
-                <SideButtons post={props.post} />
+                <SideButtons post={props.post}/>
 
                 <div className="px-2">
                     <div className="mb-2">
