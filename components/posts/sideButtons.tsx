@@ -8,7 +8,7 @@ async function postActions(action: string, id: string) {
   return response;
 }
 
-export default function SideButtons(props: Props) {
+export default function SideButtons(props: {post : Props}) {
   const activeUpvoated = 'btn btn-md bg-green-500 hover:bg-green-700 text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
   const inactiveUpvoated = 'btn btn-md btn-outline btn-success text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
   const activeDownvoated = 'btn btn-md bg-red-500 hover:bg-red-700 text-white font-bold rounded focus:outline-none focus:shadow-outline p-2 m-1'
@@ -22,12 +22,12 @@ export default function SideButtons(props: Props) {
     if (upvoated) {
       setUpvoated(false);
       setActiveButtons([inactiveUpvoated, inactiveDownvoated]);
-      await postActions("none", props.id);
+      await postActions("none", props.post.id);
     } else {
       setUpvoated(true);
       setDownvoated(false);
       setActiveButtons([activeUpvoated, inactiveDownvoated]);
-      await postActions("upvote", props.id);
+      await postActions("upvote", props.post.id);
     }
   }
 
@@ -35,12 +35,12 @@ export default function SideButtons(props: Props) {
     if (downvoated) {
       setDownvoated(false);
       setActiveButtons([inactiveUpvoated, inactiveDownvoated]);
-      await postActions("none", props.id);
+      await postActions("none", props.post.id);
     } else {
       setDownvoated(true);
       setUpvoated(false);
       setActiveButtons([inactiveUpvoated, activeDownvoated]);
-      await postActions("downvote", props.id);
+      await postActions("downvote", props.post.id);
     }
   }
 
@@ -49,13 +49,13 @@ export default function SideButtons(props: Props) {
 
   return (
     <div className="flex flex-col p-1">
-      <h1 className="p-2 text-md text-white font-semibold justify-center">{props.score}</h1>
+      <h1 className="p-2 text-md text-white font-semibold justify-center">{props.post.score}</h1>
       {
-        props.archived ?
+        props.post.archived ?
           <>
             <button className="btn btn-outline btn-secondary p-2 m-1" >📁</button>
           </> :
-          !props.locked ?
+          !props.post.locked ?
             <>
               <button className={upvoteClass} onClick={handleUpvote}>⬆️</button>
               <button className={downvoteClass} onClick={handleDownvote}>⬇️</button>
@@ -67,7 +67,7 @@ export default function SideButtons(props: Props) {
       <div className="dropdown dropdown-top">
         <label tabIndex={0} className="btn btn-outline btn-primary rounded focus:shadow-outline p-4 m-1"> ⚙️ </label>
         <ul tabIndex={0} className="dropdown-content menu shadow bg-[#2E1065] focus:bg-teal-300 outline outline-2 rounded-box w-40 text-white">
-          <ExtraActions link={props.link} id={props.id} isSaved={props.isSaved} />
+          <ExtraActions link={props.post.permalink} id={props.post.id} isSaved={props.post.saved} />
         </ul>
       </div>
     </div>)
@@ -78,7 +78,7 @@ interface Props {
   score: number,
   archived: boolean,
   locked: boolean,
-  link: string,
-  isSaved: boolean,
+  permalink: string,
+  saved: boolean,
 }
 //type refers to if we are trying to interact with a post or with a comment or else.

@@ -31,7 +31,6 @@ export default function CommentsHandler(props: Props) {
   }
 
   if (data["comments"].length) {
-    console.log(data)
     return <CommentsDisplay comments={data["comments"]} />
   }
   else {

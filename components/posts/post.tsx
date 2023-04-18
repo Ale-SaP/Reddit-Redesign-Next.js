@@ -12,9 +12,8 @@ function cutText(text: string, limit: number) {
     else { return text }
 }
 
-export default function Post(props: { post: PostInterface })  {
+export default function Post(props: { post: PostInterface }) {
     const [commentsLoaded, setComments] = useState(false)
-    const [show, setShow] = useState("")
     const [commentsButton, setCommentsButton] = useState("Show Comments")
 
     const [textButton, setTextButton] = useState(() => {
@@ -37,13 +36,11 @@ export default function Post(props: { post: PostInterface })  {
     const handleComments = () => {
         if (commentsButton === "Show Comments") {
             setCommentsButton("Hide Comments")
-            setShow("")
             if (commentsLoaded === false) {
                 { setComments(true) }
             }
         }
         else {
-            setShow("none")
             setCommentsButton("Show Comments")
         }
     }
@@ -58,8 +55,7 @@ export default function Post(props: { post: PostInterface })  {
     return (
         <div key={props.post.id} className="rounded overflow-hidden shadow-xl my-2 border-solid border border-slate-700">
             <div className="py-4 flex">
-                <SideButtons id={props.post.id} score={props.post.score} archived={props.post.archived} locked={props.post.locked}
-                link={props.post.permalink} isSaved={props.post.saved}/>
+                <SideButtons post={props.post} />
 
                 <div className="px-2">
                     <div className="mb-2">
@@ -77,7 +73,7 @@ export default function Post(props: { post: PostInterface })  {
                     <div className="flex flex-row space-x-4 align-bottom">
                         <button className="btn btn-primary" onClick={() => handleComments()}>{commentsButton}</button>
                     </div>
-                    <div style={{ display: show }} className="overflow-x-auto">
+                    <div className={commentsButton === "Show Comments" ? "hidden overflow-x-auto" : "overflow-x-auto"}>
                         {commentsLoaded ? (
                             <CommentsHandler id={props.post.id} />
                         ) : (
