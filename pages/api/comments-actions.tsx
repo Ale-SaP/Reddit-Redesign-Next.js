@@ -54,7 +54,11 @@ export default async function handler(
       await comment.unvote()
     } else if (action === 'save') {
       comment.save()
-    } else {
+    } 
+    else if (action === 'unsave') {
+      comment.unsave()
+    }
+    else {
     }
     res.status(202).json({ text: 'Done' })
   } catch (error) {

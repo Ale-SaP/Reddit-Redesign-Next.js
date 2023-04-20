@@ -46,14 +46,14 @@ function CommentDisplay({ comment }: CommentDisplayProps) {
           <div className='flex'>
             <p className="text-xs">
               u/{comment.author} at {dateString} 
-              {hideComment ? <button onClick={handleHide} className='btn btn-xs btn-outline btn btn-white text-white font-bold rounded focus:outline-none focus:shadow-outline mx-2 p-1'>X</button> : <button onClick={handleHide} className='btn btn-xs btn-outline btn btn-error text-white font-bold rounded focus:outline-none focus:shadow-outline mx-2 p-1'>X</button>}
+              {hideComment ? <button onClick={handleHide} className='btn btn-xs btn btn-white text-white font-bold rounded focus:outline-none focus:shadow-outline mx-2 p-1'>X</button> : <button onClick={handleHide} className='btn btn-xs btn-outline btn btn-error text-white font-bold rounded focus:outline-none focus:shadow-outline mx-2 p-1'>X</button>}
             </p>
           </div>
           {!hideComment && <CommentText comment={comment.body} />}
           <div className='btn-group p-2'>
             <CommentsButtons comment={comment} />
             {comment.replies.length > 0 && (
-              <button onClick={handleClick} className='text-slate-200 p-2 m-1 btn btn-sm btn-ghost hover:bg-violet-900 ml-2'>
+              <button onClick={handleClick} className={subCommentsLoaded ? 'text-slate-200 p-2 m-1 btn btn-sm btn-active hover:bg-violet-900 ml-2' : 'text-slate-200 p-2 m-1 btn btn-sm btn-ghost hover:bg-violet-900 ml-2'}>
                 {subCommentsLoaded ? 'Hide 📜' : 'Show 📜'}
               </button>
             )}

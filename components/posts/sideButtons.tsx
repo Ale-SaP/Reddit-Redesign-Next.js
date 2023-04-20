@@ -65,8 +65,8 @@ export default function SideButtons(props: { post: Props }) {
               <button className="btn btn-outline btn-warning p-2 m-1" >🔒</button>
             </>
       }
-      <button className="btn btn-outline btn-primary rounded focus:shadow-outline p-4 m-1" onClick={() => setExtraActions(!extraActions)}>{extraActions ? "⛔" : "⚙"}</button>
-      {extraActions && <ExtraActions link={props.post.permalink} id={props.post.id} isSaved={props.post.saved} />}
+      <button className={extraActions ? "btn btn-error p-2 m-1" : "btn btn-outline btn-secondary p-2 m-1"} onClick={() => setExtraActions(!extraActions)}>{extraActions ? "⛔" : "⚙"}</button>
+      {extraActions && <ExtraActions link={props.post.permalink} id={props.post.id} isSaved={props.post.saved} type='post'/>}
     </div>)
 }
 

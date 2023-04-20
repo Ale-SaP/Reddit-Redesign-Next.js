@@ -65,10 +65,11 @@ export default function CommentsButtons(props: { comment: Props }) {
             <button className={activeButtons[1]} onClick={handleDownvote}>⬇️</button>
           </>
       }
-      <button className="btn btn btn-sm btn-outline btn-primary rounded focus:shadow-outline p-2 m-1" onClick={() => setExtraActions(!extraActions)}>
+      <button className={extraActions ? "btn btn-sm btn-error p-2 m-1" : "btn btn-sm btn-outline btn-secondary p-2 m-1"}
+        onClick={() => setExtraActions(!extraActions)}>
         {extraActions ? "⛔" : "⚙"}
       </button>
-      {extraActions && <ExtraActions id={props.comment.id} link={props.comment.permalink} isSaved={props.comment.saved} />}
+      {extraActions && <ExtraActions id={props.comment.id} link={props.comment.permalink} isSaved={props.comment.saved} type='comment'/>}
 
 
     </>

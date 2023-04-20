@@ -54,7 +54,10 @@ export default async function handler(
       await post.unvote()
     } else if (action === 'save') {
       post.save()
-    } else {
+    } else if (action === 'unsave') {
+      post.unsave()
+    }
+    else {
     }
     res.status(202).json({ text: 'Done' })
   } catch (error) {
