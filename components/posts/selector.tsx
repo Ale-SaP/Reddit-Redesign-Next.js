@@ -3,14 +3,12 @@ import { useRouter } from 'next/router'
 
 export default function Selector() {
   const router = useRouter()
-  const [selCategory, setCategory] = useState(
-    () => {
-      try {
-        return (router.asPath).split("=")[1];
-      }
-      catch { return ("Hot") }
-    }
-  )
+  const [selCategory, setCategory] = useState(() => {
+    const { s } = router.query;
+    const selectorParam = Array.isArray(s) ? s[0] : s;
+    return selectorParam;
+  });
+  
 
   const onChange = (e) => {
     e.preventDefault()
