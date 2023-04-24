@@ -1,0 +1,9 @@
+# import useState, useRouter
+
+# component TimeSelector 
+    # router is useRouter
+    # const { s, t } = router.query;
+    # [selCategory. setCategroy] is useState: function try return router.asPath catch return "hot"
+    # function onChange(e):
+        #change the "t" value, but keep the s value
+    # return select: options: hour, day, week (default), month, year, all

@@ -2,6 +2,8 @@
 
 # component Selector 
     # router is useRouter
+    # const { s, t } = router.query;
     # [selCategory. setCategroy] is useState: function try return router.asPath catch return "hot"
-    # function onChange(e): router.push("?s=" + e.target.value) and setCategory(e.target.value)
+    # function onChange(e):
+        #change the "s" value, but keep the t value
     # return select: options: (default), Hot, New, Top

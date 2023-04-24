@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import PostInterface from "../../components/posts/postInterface";
 import Post from "../../components/posts/post";
 import NavBar from "../../components/NavBar";
+import SelectorSquare from "../../components/SelectorSquare";
 
 const fetchSubreddit = async (subreddit: string, selector: string, timeframe: string): Promise<PostInterface[]> => {
   const instance = axios.create({});
@@ -45,6 +46,7 @@ export default function Subreddit() {
         <NavBar />
         <div className="py-20 bg-gray-900 flex flex-col items-center justify-center">
           <div className='max-w-screen-md bg-slate-900'>
+            <SelectorSquare />
             {data.map((post) => (
               <Post post={post} key={post.id} />
             ))}

@@ -1,4 +1,3 @@
-import Selector from "./posts/selector";
 import {useRouter} from "next/router";
 
 export default function NavBar() {
@@ -14,7 +13,6 @@ export default function NavBar() {
                 <a className="btn btn-ghost normal-case text-xl" onClick={onHome}>Re-Reddit</a>
             </div>
             <div className="flex-1">
-                <Selector />
             </div>
             <div className="flex-none">
                 <button className="btn btn-square btn-ghost">
