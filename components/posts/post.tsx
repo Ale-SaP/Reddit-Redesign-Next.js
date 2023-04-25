@@ -14,7 +14,6 @@ function cutText(text: string, limit: number) {
 
 
 export default function Post(props: { post: PostInterface }) {
-    console.log(props.post.url)
     const [commentsLoaded, setComments] = useState(false)
     const [commentsButton, setCommentsButton] = useState("Show Comments")
 

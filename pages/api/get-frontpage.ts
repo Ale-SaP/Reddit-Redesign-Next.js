@@ -44,12 +44,12 @@ export default async function handler(
   })
 
   let posts: String;
-  const { selector } = req.body;
+  const { selector, timeFilter } = req.body;
 
-  if (selector === "Hot"){ posts = await reddit_instance.getHot()}
-  else if (selector === "Top") { posts = await reddit_instance.getTop()}
-  else if (selector === "New") { posts = await reddit_instance.getNew()}
-  else { posts = await reddit_instance.getHot()}
+  if (selector === "Hot"){ posts = await reddit_instance.getHot({"time": timeFilter})}
+  else if (selector === "Top") { posts = await reddit_instance.getTop({"time": timeFilter})}
+  else if (selector === "New") { posts = await reddit_instance.getNew({"time": timeFilter})}
+  else { posts = await reddit_instance.getHot({"time": timeFilter})}
 
   // Rest of the API logic
   res.json({ posts })

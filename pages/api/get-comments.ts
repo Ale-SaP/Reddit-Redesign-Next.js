@@ -46,7 +46,7 @@ export default async function handler(
   const { postId } = req.body;
   
   const getPost = await reddit_instance.getSubmission(postId);
-  const post = await getPost.expandReplies({limit: 10, depth: 2});
+  const post = await getPost.expandReplies({"limit": 10, depth: 2});
   const comments = post.comments
 
   // Rest of the API logic

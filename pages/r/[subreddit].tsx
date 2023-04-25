@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import axios from "axios";
 import { useQuery } from "react-query";
+import axios from "axios";
 
 //Components
 import PostInterface from "../../components/posts/postInterface";
@@ -16,28 +16,30 @@ const fetchSubreddit = async (subreddit: string, selector: string, timeframe: st
 
 export default function Subreddit() {
   const router = useRouter();
-  const { subreddit } = router.query;
-  const { s, t } = router.query;
+  const { subreddit, s, t } = router.query;
   const subredditParam = Array.isArray(subreddit) ? subreddit[0] : subreddit;
   const selectorParam = Array.isArray(s) ? s[0] : s;
   const timeframeParam = Array.isArray(t) ? t[0] : t;
 
-  if (!subredditParam) {
+  if (!subreddit) {
     return (
       <>
         <h1>No subreddit specified</h1>
       </>
-    )
+    );
   }
 
-  const { data, isLoading, isError } = useQuery<PostInterface[]>(['todos', subredditParam, s, t], () => fetchSubreddit(subredditParam, selectorParam, timeframeParam));
+  const { data, isLoading, isError } = useQuery<PostInterface[]>(
+    ['subreddit', subredditParam, selectorParam, timeframeParam],
+    () => fetchSubreddit(subredditParam, selectorParam, timeframeParam)
+  );
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <div>Error: could not load subreddit</div>
+    return <div>Error: could not load subreddit</div>;
   }
 
   if (data) {
