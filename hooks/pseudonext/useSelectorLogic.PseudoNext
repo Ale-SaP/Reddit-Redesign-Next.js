@@ -1,0 +1,5 @@
+# hook useSelectorLogic
+    # const {s, t} = router.query;
+    # if s is  "Hot" or "New", timeframe options is "today"
+    # if s is "Top", timeframe options is "hour", "day", "week", "month", "year", "all"
+    # return timeframe options

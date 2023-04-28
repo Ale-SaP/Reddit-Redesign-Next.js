@@ -1,0 +1,5 @@
+# export default hook useStorParams
+    # const {subreddit, s, t} = router.query;
+    # store each element in an useState: either can be either a string or an array of strings:
+        # if is an array, just store the first element
+    # return subreddit, selector, timeframe

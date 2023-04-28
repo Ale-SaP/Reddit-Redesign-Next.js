@@ -21,7 +21,7 @@ const Selector = () => {
     setCategory(newCategory);
 
     if (newCategory === "Hot" || newCategory === "New") {
-      setTimeFilter("hour");
+      setTimeFilter("today");
     }
 
     const queryParams = { s: newCategory, t: timeFilter, ts: new Date().getTime() };
@@ -31,6 +31,7 @@ const Selector = () => {
         pathname: router.pathname,
         query: { subreddit, ...queryParams },
       });
+      
     } else {
       router.push({
         pathname: router.pathname,
