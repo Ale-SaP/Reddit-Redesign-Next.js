@@ -8,38 +8,10 @@ import NavBar from '../../components/NavBar';
 import Post from '../../components/posts/post';
 import PostInterface from '../../components/posts/postInterface';
 import SelectorSquare from '../../components/SelectorSquare';
+import useSubreddit from '../../hooks/useSelector';
 
 export default function Frontpage() {
-  const queryClient = useQueryClient();
-  const router = useRouter();
-  const { s, t } = router.query;
-
-  const [selCategory, setCategory] = useState(() => {
-    const selectorParam = Array.isArray(s) ? s[0] : s;
-    return selectorParam || "Hot";
-  });
-
-  const [timeFilter, setTime] = useState(() => {
-    const timeParam = Array.isArray(t) ? t[0] : t;
-    if (selCategory === "New") { return "day" }
-    return timeParam || "week";
-  });
-
-  const { data, isLoading } = useQuery<PostInterface[]>([selCategory, timeFilter], () => fetchFrontPage(selCategory, timeFilter));
-
-  useEffect(() => {
-    queryClient.refetchQueries();
-    setCategory(() => {
-      const selectorParam = Array.isArray(s) ? s[0] : s;
-      return selectorParam || "Hot";
-    })
-    setTime(() => {
-      const timeParam = Array.isArray(t) ? t[0] : t;
-      if (selCategory === "New") { return "day" }
-      return timeParam || "week";
-    });
-
-  }, [router.asPath]);
+  const {isLoading, data} = useSubreddit()
 
   if (isLoading) {
     return (

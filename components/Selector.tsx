@@ -24,7 +24,7 @@ const Selector = () => {
       setTimeFilter("today");
     }
 
-    const queryParams = { s: newCategory, t: timeFilter, ts: new Date().getTime() };
+    const queryParams = { s: newCategory, t: timeFilter};
 
     if (subreddit !== undefined) {
       router.push({

@@ -2,7 +2,7 @@
 import Post from "../../components/posts/post";
 import NavBar from "../../components/NavBar";
 import SelectorSquare from "../../components/SelectorSquare";
-import useSubreddit from "../../hooks/useSubreddit";
+import useSubreddit from "../../hooks/useSelector";
 
 export default function Subreddit() {
   const { data, isError, isLoading } = useSubreddit()
