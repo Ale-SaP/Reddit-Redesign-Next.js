@@ -14,7 +14,7 @@ const isValidTimeframe = (timeframe: string): timeframe is Timeframe =>
 
 const defaultSelector = "Hot";
 const defaultTimeframe = "day";
-  
+
 export default function isValidCombination(selector: string, timeframe: string) {
   //This line just validates the selector and timeframe
   if (isValidSelector(selector) && isValidTimeframe(timeframe)) {
@@ -32,6 +32,10 @@ export default function isValidCombination(selector: string, timeframe: string) 
       }
     }
   }
+  else if (isValidSelector(selector)) {
+    return [selector, defaultTimeframe]
+  }
+
   else {
     return [defaultSelector, defaultTimeframe]
   }

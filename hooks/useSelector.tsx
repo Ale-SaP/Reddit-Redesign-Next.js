@@ -3,19 +3,14 @@ import { useQuery, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
 
 //Main imports
-import PostInterface from "../components/posts/postInterface";
-import { fetchSubreddit, fetchFrontPage } from "./fetchFunctions";
 import isValidCombination from "./useSelectorLogic";
 
 const returnFirstElement = (element: string | string[]) => {
   const subParam = Array.isArray(element) ? element[0] : element;
   return subParam
 }
-const defaultSelector = "Hot";
-const defaultTimeframe = "day";
 
-const useSubreddit = () => {
-  const queryClient = useQueryClient();
+const useSelector = () => {
   const router = useRouter();
   const { subreddit, s, t } = router.query;
 
@@ -24,53 +19,20 @@ const useSubreddit = () => {
 
   const selectorParam = returnFirstElement(s);
   const timeParam = returnFirstElement(t);
+  //UseSelectorLogic takes care of checking if the combination is valid
   const [combination, setCombination] = useState(isValidCombination(selectorParam, timeParam));
 
-  //Reload the query when the router changes
-  useEffect(() => {
-    console.log("reloading query")
-    queryClient.refetchQueries();
+  useEffect( () => {
+    setSubreddit(returnFirstElement(subreddit));
 
-    setSubreddit(returnFirstElement(subreddit))
-    const selectorParam = returnFirstElement(s)
-    const timeParam = returnFirstElement(t)
-    setCombination(isValidCombination(selectorParam, timeParam))
+    const selectorParam = returnFirstElement(s);
+    const timeParam = returnFirstElement(t);
+    setCombination(isValidCombination(selectorParam, timeParam));
 
-    //All this logic only to redirect the user if the params are not valid
-    if (selectorParam != combination[0] || timeParam != combination[1]) {
-      let queryParams;
-      if (selectorParam != combination[0]) { 
-        queryParams = { s: defaultSelector, t: defaultTimeframe }; 
-      }
-      else {
-        queryParams = { s: combination[0], t: defaultTimeframe };
-      }
+  }, [router.query])
 
-      if (selSubreddit !== undefined) {
-        queryParams.subreddit = selSubreddit;
-        router.replace(`/r/${selSubreddit}?s=${defaultSelector}&t=${defaultTimeframe}`);
-
-      } else {
-        router.push({
-          pathname: router.pathname,
-          query: queryParams,
-        });
-      }
-    }
-  }
-    , [router.query]);
-
-  //Fetch the data
-  const { data, isError, isLoading } = useQuery<PostInterface[]>([selSubreddit, combination], () => {
-    //If the subreddit is set, fetch the subreddit, else fetch the frontpage
-    if (selSubreddit) {
-      return fetchSubreddit(selSubreddit, combination[0], combination[1]);
-    } else {
-      return fetchFrontPage(combination[0], combination[1]);
-    }
-  });
-
-  return { data, isError, isLoading };
+  if (selSubreddit) { return {"subreddit": selSubreddit, "selector": combination[0], "timeframe": combination[1]} }
+  else {return {"selector": combination[0], "timeframe": combination[1]}}
 }
 
-export default useSubreddit;
+export default useSelector;

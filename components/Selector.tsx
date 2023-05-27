@@ -44,7 +44,7 @@ const Selector = () => {
     const newTimeFilter = e.target.value;
     setTimeFilter(newTimeFilter);
 
-    const queryParams = { s: selCategory, t: newTimeFilter, ts: new Date().getTime() };
+    const queryParams = { s: selCategory, t: newTimeFilter};
 
     if (subreddit !== undefined) {
       router.push({
