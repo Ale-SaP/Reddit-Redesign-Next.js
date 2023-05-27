@@ -11,9 +11,9 @@ interface ExtraActionsProps {
 async function postActions(action, id, type) {
   const instance = axios.create();
   if (type === "post")
-    return await instance.post("api/posts-actions", {"action": action, "postId": id });
+    return await instance.post("/api/posts-actions", {"action": action, "postId": id });
   else if (type === "comment")
-  return await instance.post("api/comments-actions", {"action": action, "postId": id});
+  return await instance.post("/api/comments-actions", {"action": action, "postId": id});
 }
 
 export default function ExtraActions(props: ExtraActionsProps) {

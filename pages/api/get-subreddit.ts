@@ -45,6 +45,13 @@ export default async function handler(
   //"all", "day", "hour", "month", "week", or "year" (default: "all").
   const { subreddit, selector, timeFilter } = req.body;
   let posts;
+  let time = timeFilter || (selector === "Hot" || "New" ? "day" : "week");
+
+  if (!subreddit) {
+    posts = await reddit_instance.getHot({"time": timeFilter})
+    res.json({ posts })
+    return;
+  }
 
   if (selector === "Hot") {
     posts = await reddit_instance.getSubreddit(subreddit).getHot({"time": timeFilter});

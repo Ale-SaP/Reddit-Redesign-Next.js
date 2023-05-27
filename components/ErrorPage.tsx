@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import NavBar from './NavBar';
-import SelectorSquare from './SelectorSquare';
+import SelectorSquare from './selector/SelectorSquare';
 
 const ErrorMessage = ({ errorMessage }) => {
     const router = useRouter();

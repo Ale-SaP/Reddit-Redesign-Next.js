@@ -3,7 +3,7 @@ import { useQuery, useQueryClient, QueryClientProvider } from 'react-query'
 //Components
 import Post from "../../components/posts/post";
 import NavBar from "../../components/NavBar";
-import SelectorSquare from "../../components/SelectorSquare";
+import SelectorSquare from "../../components/selector/SelectorSquare";
 
 //Utils
 import PostInterface from '../../components/posts/postInterface';
@@ -13,7 +13,7 @@ import ErrorMessage from '../../components/ErrorPage';
 
 export default function Subreddit() {
   const { selector, timeframe, subreddit } = useSelector()
-  const { data, isError, isLoading } = useQuery<PostInterface[]>([selector, timeframe], () => {
+  const { data, isError, isLoading } = useQuery<PostInterface[]>([selector, timeframe, subreddit], () => {
     //If the subreddit is set, fetch the subreddit, else fetch the frontpage
     return fetchSubreddit(subreddit, selector, timeframe);
   });

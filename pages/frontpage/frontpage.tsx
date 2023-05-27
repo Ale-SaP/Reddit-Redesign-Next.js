@@ -4,7 +4,7 @@ import { useQuery, useQueryClient, QueryClientProvider } from 'react-query'
 import NavBar from '../../components/NavBar';
 import Post from '../../components/posts/post';
 import PostInterface from '../../components/posts/postInterface';
-import SelectorSquare from '../../components/SelectorSquare';
+import SelectorSquare from '../../components/selector/SelectorSquare';
 import useSelector from '../../hooks/useSelector';
 import { fetchFrontPage } from '../../hooks/fetchFunctions';
 

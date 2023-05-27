@@ -1,20 +1,18 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
+
+const returnFirstElement = (element: string | string[]) => {
+  const subParam = Array.isArray(element) ? element[0] : element;
+  return subParam
+}
 
 const Selector = () => {
   const router = useRouter();
   const { subreddit, s, t } = router.query;
 
-  const [selCategory, setCategory] = useState(() => {
-    const selectorParam = Array.isArray(s) ? s[0] : s;
-    return selectorParam || "Hot";
-  });
+  const [selCategory, setCategory] = useState(returnFirstElement(s) || "Hot");
 
-  const [timeFilter, setTimeFilter] = useState(() => {
-    const timeParam = Array.isArray(t) ? t[0] : t;
-    if (selCategory === "New") { return "day" }
-    return timeParam || "week";
-  });
+  const [timeFilter, setTimeFilter] = useState(returnFirstElement(t) || (selCategory === "Hot" || selCategory === "New" ? "today" : "week"))
 
   const handleCategoryChange = (e) => {
     const newCategory = e.target.value;

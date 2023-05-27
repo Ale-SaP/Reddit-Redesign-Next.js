@@ -4,7 +4,7 @@ import ExtraActions from '../ExtraActions';
 
 async function postActions(action: string, id: string) {
   const instance = axios.create();
-  const response = await instance.post("api/comments-actions", { "action": action, "postId": id });
+  const response = await instance.post("/api/comments-actions", { "action": action, "postId": id });
   return response;
 }
 
