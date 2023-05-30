@@ -19,7 +19,7 @@ export default function Frontpage() {
     return (
       <div>
         <NavBar />
-        <div className="py-20 bg-gray-900 flex flex-col items-center justify-top h-screen">
+        <div className="py-20 bg-gray-900 flex flex-col items-center justify-top h-screen w-max-screen">
           <div className='max-w-screen-md bg-slate-900'>
             <SelectorSquare />
             <div>

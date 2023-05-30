@@ -14,3 +14,9 @@ export const fetchFrontPage = async (selector: string, timeFilter: string): Prom
     const data = await instance.post(`/api/get-frontpage`, { "selector": selector, "timeFilter": timeFilter });
     return data.data.posts
 }
+
+export const fetchSinglePost = async (id: string): Promise<PostInterface> => {
+    const instance = axios.create({});
+    const data = await instance.post(`/api/get-single-post`, { "id": id });
+    return data.data.post
+}

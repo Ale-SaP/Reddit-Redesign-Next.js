@@ -49,7 +49,7 @@ export default function Subreddit() {
     return (
       <div className=''>
         <NavBar />
-        <div className="py-20 bg-gray-900 flex flex-col items-center justify-center">
+        <div className="py-20 bg-gray-900 flex flex-col items-center justify-center w-max-screen">
           <div className='max-w-screen-md bg-slate-900'>
             <SelectorSquare />
             {data.map((post) => (

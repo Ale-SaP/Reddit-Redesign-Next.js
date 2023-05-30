@@ -13,9 +13,9 @@ function cutText(text: string, limit: number) {
 }
 
 
-export default function Post(props: { post: PostInterface }) {
-    const [commentsLoaded, setComments] = useState(false)
-    const [commentsButton, setCommentsButton] = useState("Show Comments")
+export default function Post(props: { post: PostInterface, loadComments?: boolean }) {
+    const [commentsLoaded, setComments] = useState(props.loadComments || false)
+    const [commentsButton, setCommentsButton] = useState(commentsLoaded ? "Hide Comments" : "Show Comments")
 
     const [textButton, setTextButton] = useState(() => {
         if ((props.post.selftext).length > 200) { return "Show More..." }
@@ -54,15 +54,15 @@ export default function Post(props: { post: PostInterface }) {
     const year = dateObj.getFullYear();
 
     return (
-        <div key={props.post.id} className="rounded overflow-hidden shadow-xl my-2 border-solid border border-slate-700">
+        <div key={props.post.id} className="rounded overflow-scroll shadow-xl my-2 border-solid border border-slate-700 mx-2">
             <div className="py-4 flex">
-                <SideButtons post={props.post}/>
+                <SideButtons post={props.post} />
 
                 <div className="px-2">
                     <div className="mb-2">
                         <div className="font-bold italic text-xl text-gray-500">{props.post.subreddit}</div>
                         <div className="text-md italic font-light">u/{props.post.author} - {hour}:{minutes} at {date}/{month}/{year}</div>
-                        <h1 className="font-bold text-xl">{props.post.title}</h1>
+                        <h1 className="font-bold text-xl" onClick={() => window.open(`/post/${props.post.id}`, '_blank')}>{props.post.title}</h1>
                     </div>
                     {text && <>
                         <p className="text-gray-300 text-base mb-3 flex-grow">{text}</p>

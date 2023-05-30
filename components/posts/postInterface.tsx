@@ -70,7 +70,7 @@ export default interface PostInterface {
     over_18: boolean;
     parent_whitelist_status: string;
     permalink: string;
-    /*     pinned: boolean;
+    pinned: boolean; /*
         post_hint: string | null; */
     preview: { [key: string]: any }; // replace "any" with a more specific type if possible
     pwls: number;
